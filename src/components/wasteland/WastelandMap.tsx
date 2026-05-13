@@ -45,24 +45,24 @@ export const BoardGameMapSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-zinc-950 industrial-grid relative overflow-hidden flex items-center justify-center">
+    <section className="py-24 bg-parchment/60 relative overflow-hidden flex items-center justify-center border-b-4 border-rust">
       <div className="absolute inset-0 bg-rust/5" />
       <div className="container mx-auto px-10 relative z-10 text-center">
         <div className="max-w-4xl mx-auto mb-16">
-          <div className="parchment p-8 rotate-1 pixel-shadow border-4 border-[#8B4513] mb-12">
-            <h2 className="text-5xl md:text-6xl font-display text-rust mb-4">RESCUE MAP</h2>
-            <div className="h-px bg-rust/30 w-1/2 mx-auto mb-4" />
-            <p className="text-xl md:text-2xl font-typewriter italic text-rust/80">
+          <div className="parchment p-8 rotate-1 scrap-border pixel-shadow mb-12">
+            <h2 className="text-5xl md:text-6xl font-crimson text-rust mb-4 drop-shadow-[2px_2px_0px_rgba(61,38,22,0.3)]">RESCUE MAP</h2>
+            <div className="h-px bg-rust/50 w-1/2 mx-auto mb-4 border-b-2 border-rust" />
+            <p className="text-xl md:text-2xl font-inter italic text-rust/90 font-bold">
               "Your city is like a board game where valuable free finds suddenly appear!"
             </p>
           </div>
         </div>
 
-        <div className="relative w-full aspect-[16/9] max-w-6xl mx-auto border-8 border-black scrap-border pixel-shadow overflow-hidden group">
+        <div className="relative w-full aspect-[16/9] max-w-6xl mx-auto border-8 border-rust scrap-border pixel-shadow overflow-hidden group">
           <img
             src={nycMapImg}
             alt="NYC Aerial Scavenger Map"
-            className="w-full h-full object-cover grayscale brightness-[0.25] contrast-150 opacity-90"
+            className="w-full h-full object-cover brightness-[0.95] contrast-125 opacity-90 sepia-[0.3]"
           />
           <div className="absolute inset-0 bg-rust/20 mix-blend-overlay" />
 
@@ -88,11 +88,11 @@ export const BoardGameMapSection = () => {
                 >
                   <div className="relative flex flex-col items-center">
                     <motion.div
-                      className="bg-toxic-green p-2 rounded-full border-4 border-black pixel-shadow group-hover/pin:scale-110 transition-transform"
+                      className="bg-toxic-green p-2 rounded-full border-4 border-rust pixel-shadow group-hover/pin:scale-110 transition-transform"
                       animate={isScanned ? { scale: [1, 1.5, 1], rotate: [0, 10, -10, 0] } : {}}
                       transition={{ duration: 0.4 }}
                     >
-                      <div className="text-black">{pin.icon}</div>
+                      <div className="text-parchment drop-shadow-md">{pin.icon}</div>
                     </motion.div>
                     {isScanned && (
                       <motion.div
@@ -102,8 +102,8 @@ export const BoardGameMapSection = () => {
                         transition={{ duration: 0.6 }}
                       />
                     )}
-                    <div className="w-1 h-8 bg-black mt-[-2px]" />
-                    <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-black/90 p-2 border border-toxic-green text-toxic-green font-pixel text-[8px] whitespace-nowrap opacity-0 group-hover/pin:opacity-100 transition-opacity">
+                    <div className="w-1 h-8 bg-rust mt-[-2px]" />
+                    <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-rust p-2 border-2 border-toxic-green text-toxic-green font-inter font-bold text-[10px] whitespace-nowrap opacity-0 group-hover/pin:opacity-100 transition-opacity pixel-shadow">
                       RECLAIMABLE_ASSET_FOUND
                     </div>
                   </div>

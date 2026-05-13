@@ -7,7 +7,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { StructuredData } from '@/components/StructuredData';
 
 // Wasteland components
-import { DustParticles, BackgroundRadar, ScreenStatic, WastelandAudio } from '@/components/wasteland/WastelandEffects';
+import { WastelandAudio } from '@/components/wasteland/WastelandEffects';
 import { WastelandNavbar, WastelandTicker } from '@/components/wasteland/WastelandNav';
 import { HeroSection, TheProblemSection, HowItWorksSection, NearbyDiscoveriesSection } from '@/components/wasteland/WastelandSections';
 import { BoardGameMapSection } from '@/components/wasteland/WastelandMap';
@@ -31,15 +31,14 @@ export default function LandingPage() {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
 
   useEffect(() => {
-    (async () => {
-      const { data } = await supabase
-        .from('blog_posts')
-        .select('id, slug, title, description, cover_image_url')
-        .eq('published', true)
-        .order('created_at', { ascending: false })
-        .limit(3);
-      setBlogPosts(data || []);
-    })();
+    // Inject the hardcoded blog post
+    setBlogPosts([{
+      id: 'hardcoded-stooping-blog',
+      slug: 'https://greenhunt.net/blog/stooping-finding-and-sharing-free-treasures-on-the-street',
+      title: 'Stooping: Finding and Sharing Free Treasures on the Street',
+      description: 'Discover how the modern urban explorer rescues valuable items from the curbside and saves them from the landfill.',
+      cover_image_url: '/street-finds/find-7.webp'
+    }]);
   }, []);
 
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
@@ -73,14 +72,8 @@ export default function LandingPage() {
     <div className="wasteland-root selection:bg-toxic-green selection:text-black">
       <StructuredData />
 
-      {/* Atmospheric overlays */}
+      {/* Atmospheric overlays (reduced for Map theme) */}
       <WastelandAudio />
-      <ScreenStatic />
-      <div className="crt-overlay animate-flicker" />
-      <div className="noise-overlay" />
-      <div className="scan-line" />
-      <DustParticles />
-      <BackgroundRadar />
 
       {/* Navigation */}
       <WastelandNavbar />
@@ -104,7 +97,7 @@ export default function LandingPage() {
       </main>
 
       {/* Spacing for fixed ticker */}
-      <div className="h-10 bg-black" />
+      <div className="h-10 bg-rust" />
       <WastelandTicker />
 
       {/* Scroll to top */}

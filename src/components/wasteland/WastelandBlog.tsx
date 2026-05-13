@@ -13,7 +13,7 @@ interface BlogPost {
 export const WastelandBlogSection = ({ posts }: { posts: BlogPost[] }) => {
   if (posts.length === 0) return null;
   return (
-    <section className="py-24 bg-black/40 industrial-grid border-b-4 border-black">
+    <section className="py-24 bg-parchment/40 border-b-4 border-rust">
       <div className="container mx-auto px-10">
         <SectionHeading
           badge="INTEL_CORE"
@@ -21,45 +21,55 @@ export const WastelandBlogSection = ({ posts }: { posts: BlogPost[] }) => {
           subtitle="Field reports and survival guides for the modern urban explorer."
         />
         <div className="grid md:grid-cols-3 gap-12">
-          {posts.map(post => (
-            <Link
-              key={post.id}
-              to={`/blog/${post.slug}`}
-              className="bg-zinc-900/80 border-4 border-black p-0 scrap-border pixel-shadow group cursor-pointer hover:bg-zinc-800 transition-colors overflow-hidden block"
-            >
-              {post.cover_image_url ? (
-                <div className="h-48 overflow-hidden border-b-2 border-black">
-                  <img
-                    src={post.cover_image_url}
-                    alt={post.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-500"
-                  />
-                </div>
-              ) : (
-                <div className="h-48 bg-zinc-800 border-b-2 border-black industrial-grid" />
-              )}
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-6">
-                  <span className="text-[10px] font-pixel text-rust uppercase">FIELD_REPORT</span>
-                  <ArrowRight size={16} className="text-toxic-green group-hover:translate-x-2 transition-transform" />
-                </div>
-                <h3 className="text-2xl font-display text-white mb-4 tracking-widest group-hover:text-toxic-green transition-colors leading-tight">
-                  {post.title}
-                </h3>
-                {post.description && (
-                  <p className="text-dust font-typewriter text-xs mb-4 opacity-70 italic leading-relaxed line-clamp-3">
-                    "{post.description}"
-                  </p>
+          {posts.map(post => {
+            const isExternal = post.slug.startsWith('http');
+            const Wrapper = isExternal ? 'a' : Link;
+            const linkProps = isExternal 
+              ? { href: post.slug, target: '_blank', rel: 'noopener noreferrer' }
+              : { to: `/blog/${post.slug}` };
+
+            return (
+              <Wrapper
+                key={post.id}
+                {...linkProps as any}
+                className="bg-parchment scrap-border p-0 pixel-shadow group cursor-pointer hover:bg-rust/5 transition-colors overflow-hidden block"
+              >
+                {post.cover_image_url ? (
+                  <div className="h-48 overflow-hidden border-b-4 border-rust">
+                    <img
+                      src={post.cover_image_url}
+                      alt={post.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover brightness-95 group-hover:brightness-110 transition-all duration-500"
+                    />
+                  </div>
+                ) : (
+                  <div className="h-48 bg-rust/10 border-b-4 border-rust flex items-center justify-center">
+                    <span className="text-rust/30 font-inter font-black tracking-widest uppercase">NO_IMAGE_DATA</span>
+                  </div>
                 )}
-              </div>
-            </Link>
-          ))}
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-6">
+                    <span className="text-[12px] font-inter font-bold text-parchment bg-rust px-2 py-1 uppercase">FIELD_REPORT</span>
+                    <ArrowRight size={16} className="text-toxic-green group-hover:translate-x-2 transition-transform" />
+                  </div>
+                  <h3 className="text-3xl font-crimson text-rust mb-4 tracking-widest group-hover:text-toxic-green transition-colors leading-tight">
+                    {post.title}
+                  </h3>
+                  {post.description && (
+                    <p className="text-dust font-inter text-sm mb-4 opacity-90 italic leading-relaxed line-clamp-3">
+                      "{post.description}"
+                    </p>
+                  )}
+                </div>
+              </Wrapper>
+            );
+          })}
         </div>
         <div className="mt-16 text-center">
           <Link
             to="/blog"
-            className="inline-block border-2 border-toxic-green text-toxic-green px-8 py-3 font-display font-black uppercase tracking-widest hover:bg-toxic-green/10 shadow-[4px_4px_0px_#000] transition-all"
+            className="inline-block border-4 border-rust text-rust bg-hazard-yellow px-8 py-3 font-inter font-black uppercase tracking-widest hover:bg-toxic-green shadow-[6px_6px_0px_#3d2616] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
           >
             ACCESS_ALL_ARCHIVES
           </Link>

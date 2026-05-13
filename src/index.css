@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Impact&family=Bebas+Neue&family=VT323&family=Silkscreen:wght@400;700&family=Special+Elite&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -608,11 +609,11 @@ html {
 }
 
 .scrap-border {
-  border: 4px solid #333;
+  border: 4px solid #3d2616;
 }
 
 .pixel-shadow {
-  box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.5);
+  box-shadow: 6px 6px 0px 0px #3d2616;
 }
 
 .rust-effect { position: relative; }
@@ -631,8 +632,6 @@ html {
 
 /* ── Wasteland body bg (applied specifically via class) ── */
 .wasteland-bg {
-  background-color: #1a1714;
-  background-image:
-    url("https://www.transparenttextures.com/patterns/dark-matter.png"),
-    radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+  background-color: #f8df9e;
+  background-image: url("https://www.transparenttextures.com/patterns/old-map.png");
 }

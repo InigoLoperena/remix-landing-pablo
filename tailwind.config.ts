@@ -25,6 +25,8 @@ export default {
         'pixel': ['Silkscreen', 'sans-serif'],
         'typewriter': ['Special Elite', 'serif'],
         'mono-vt': ['VT323', 'monospace'],
+        'crimson': ['"Crimson Text"', 'serif'],
+        'inter': ['Inter', 'sans-serif'],
       },
 			colors: {
 				border: 'hsl(var(--border))',
@@ -71,11 +73,12 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				'price-blue': 'hsl(var(--price-blue))',
-				'toxic-green': '#39FF14',
-				'hazard-yellow': '#FFD700',
-				'rust': '#8B4513',
-				'dust': '#d2b48c',
-				'wasteland-bg': '#1a1714',
+				'toxic-green': '#588b39', /* Leaf Green */
+				'hazard-yellow': '#d59a43', /* Golden */
+				'rust': '#3d2616', /* Dark Brown Leather/Wood */
+				'dust': '#543b26', /* Brown text for light backgrounds */
+				'wasteland-bg': '#f8df9e', /* Yellow Map bg */
+				'parchment': '#ebd2a9',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
