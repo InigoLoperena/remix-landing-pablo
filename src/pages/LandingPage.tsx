@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { z } from 'zod';
 import { toast } from 'sonner';
@@ -9,37 +9,16 @@ import { StructuredData } from '@/components/StructuredData';
 // Wasteland components
 import { WastelandAudio } from '@/components/wasteland/WastelandEffects';
 import { WastelandNavbar, WastelandTicker } from '@/components/wasteland/WastelandNav';
-import { HeroSection, TheProblemSection, HowItWorksSection, NearbyDiscoveriesSection } from '@/components/wasteland/WastelandSections';
+import { HeroSection, TheCoreLoopSection, TheManifestoSection } from '@/components/wasteland/WastelandSections';
 import { BoardGameMapSection } from '@/components/wasteland/WastelandMap';
-import { WastelandBlogSection } from '@/components/wasteland/WastelandBlog';
 import { ImpactPanelSection, FinalCtaSection, SocialFooter } from '@/components/wasteland/WastelandImpact';
 
 const emailSchema = z.string().email();
-
-interface BlogPost {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  cover_image_url: string | null;
-}
 
 export default function LandingPage() {
   const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-
-  useEffect(() => {
-    // Inject the hardcoded blog post
-    setBlogPosts([{
-      id: 'hardcoded-stooping-blog',
-      slug: 'https://greenhunt.net/blog/stooping-finding-and-sharing-free-treasures-on-the-street',
-      title: 'Stooping: Finding and Sharing Free Treasures on the Street',
-      description: 'Discover how the modern urban explorer rescues valuable items from the curbside and saves them from the landfill.',
-      cover_image_url: '/street-finds/find-7.webp'
-    }]);
-  }, []);
 
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,7 +51,7 @@ export default function LandingPage() {
     <div className="wasteland-root selection:bg-toxic-green selection:text-black">
       <StructuredData />
 
-      {/* Atmospheric overlays (reduced for Map theme) */}
+      {/* Atmospheric overlays */}
       <WastelandAudio />
 
       {/* Navigation */}
@@ -81,11 +60,9 @@ export default function LandingPage() {
       {/* Main content */}
       <main className="bg-wasteland-bg">
         <HeroSection />
-        <TheProblemSection />
-        <HowItWorksSection />
-        <NearbyDiscoveriesSection />
+        <TheCoreLoopSection />
         <BoardGameMapSection />
-        <WastelandBlogSection posts={blogPosts} />
+        <TheManifestoSection />
         <ImpactPanelSection />
         <FinalCtaSection
           email={email}

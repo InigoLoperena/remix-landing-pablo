@@ -22,9 +22,9 @@ export default {
         'permanent-marker': ['Permanent Marker', 'cursive'],
         'sedgwick-ave': ['Sedgwick Ave', 'cursive'],
         'display': ['Bebas Neue', 'sans-serif'],
-        'pixel': ['Silkscreen', 'sans-serif'],
+        'pixel': ['"Press Start 2P"', 'sans-serif'],
         'typewriter': ['Special Elite', 'serif'],
-        'mono-vt': ['VT323', 'monospace'],
+        'mono-vt': ['"Pixelify Sans"', 'monospace'],
         'crimson': ['"Crimson Text"', 'serif'],
         'inter': ['Inter', 'sans-serif'],
       },
@@ -73,12 +73,26 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				'price-blue': 'hsl(var(--price-blue))',
-				'toxic-green': '#588b39', /* Leaf Green */
-				'hazard-yellow': '#d59a43', /* Golden */
-				'rust': '#3d2616', /* Dark Brown Leather/Wood */
-				'dust': '#543b26', /* Brown text for light backgrounds */
-				'wasteland-bg': '#f8df9e', /* Yellow Map bg */
-				'parchment': '#ebd2a9',
+				'greenhunt-green': '#699e4b',
+				'greenhunt-green-v2': '#7ac142',
+				'paper': '#f4f1e9',
+				'lime-green': '#b7ff4c',
+				'couch-tan': '#c4976b',
+				'water-blue': '#3ea7e5',
+				'waste-brown': '#9b8676',
+				'moss-ink': '#2f5f18',
+				'destello': '#fedf75',
+				'contrast': '#f6e4ab',
+				'sand': '#e1b87f',
+				'calcuta': '#6d4137',
+				'tierra': '#47342d',
+				/* old fallback colors to prevent breaking */
+				'toxic-green': '#699e4b',
+				'hazard-yellow': '#fedf75',
+				'rust': '#47342d',
+				'dust': '#9b8676',
+				'wasteland-bg': '#f4f1e9',
+				'parchment': '#f6e4ab',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

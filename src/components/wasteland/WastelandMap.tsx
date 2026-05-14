@@ -1,33 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Armchair, Trees, Trash2, Zap, Flame, Droplets, Bomb, Camera } from 'lucide-react';
 import nycMapImg from '@/assets/nyc-map.jpg';
 
 export const BoardGameMapSection = () => {
   const [scanPos, setScanPos] = useState(0);
-  const [activePins, setActivePins] = useState<number[]>(
-    Array.from({ length: 12 }, (_, i) => i)
-  );
-
-  useEffect(() => {
-    const interval = setInterval(() => setScanPos(p => (p + 0.5) % 100), 30);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActivePins(prev => {
-        const newPins = [...prev];
-        if (Math.random() > 0.6) {
-          const idx = Math.floor(Math.random() * 12);
-          if (newPins.includes(idx)) return newPins.filter(id => id !== idx);
-          return [...newPins, idx];
-        }
-        return prev;
-      });
-    }, 1500);
-    return () => clearInterval(interval);
-  }, []);
+  const activePinsRef = useRef<number[]>(Array.from({ length: 12 }, (_, i) => i));
+  const [renderTrigger, setRenderTrigger] = useState(0);
 
   const pins = [
     { id: 0, top: 30, left: 20, icon: <Armchair size={16} /> },
@@ -44,16 +23,47 @@ export const BoardGameMapSection = () => {
     { id: 11, top: 85, left: 25, icon: <Armchair size={16} /> },
   ];
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setScanPos(prev => {
+        const next = (prev + 0.5) % 100;
+        let changed = false;
+
+        pins.forEach(pin => {
+          let passed = false;
+          if (prev < next) passed = pin.left >= prev && pin.left < next;
+          else passed = pin.left >= prev || pin.left < next;
+
+          if (passed) {
+            if (Math.random() < 0.2) {
+              const isActive = activePinsRef.current.includes(pin.id);
+              if (isActive) activePinsRef.current = activePinsRef.current.filter(id => id !== pin.id);
+              else activePinsRef.current.push(pin.id);
+              changed = true;
+            }
+          }
+        });
+
+        if (changed) setRenderTrigger(v => v + 1);
+        return next;
+      });
+    }, 25);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="py-24 bg-parchment/60 relative overflow-hidden flex items-center justify-center border-b-4 border-rust">
+    <section className="py-16 bg-parchment/60 relative overflow-hidden flex items-center justify-center border-b-4 border-rust">
       <div className="absolute inset-0 bg-rust/5" />
       <div className="container mx-auto px-10 relative z-10 text-center">
         <div className="max-w-4xl mx-auto mb-16">
-          <div className="parchment p-8 rotate-1 scrap-border pixel-shadow mb-12">
-            <h2 className="text-5xl md:text-6xl font-crimson text-rust mb-4 drop-shadow-[2px_2px_0px_rgba(61,38,22,0.3)]">RESCUE MAP</h2>
-            <div className="h-px bg-rust/50 w-1/2 mx-auto mb-4 border-b-2 border-rust" />
-            <p className="text-xl md:text-2xl font-inter italic text-rust/90 font-bold">
-              "Your city is like a board game where valuable free finds suddenly appear!"
+          <div className="mb-8">
+            <span className="inline-block px-2 py-1 bg-toxic-green text-rust text-[10px] font-mono-vt font-bold mb-4 tracking-widest uppercase border-2 border-rust shadow-[2px_2px_0px_#3d2616]">
+              RADAR LIVE FEED
+            </span>
+            <h2 className="text-5xl md:text-7xl font-display text-rust mb-4 drop-shadow-[2px_2px_0px_rgba(61,38,22,0.3)] tracking-wider">RESCUE MAP</h2>
+            <div className="h-px bg-rust w-1/2 mx-auto mb-4 border-b-2 border-rust" />
+            <p className="text-xl md:text-2xl font-mono-vt text-rust/90 font-bold">
+              Your city is like a board game where valuable free finds suddenly appear!
             </p>
           </div>
         </div>
@@ -74,15 +84,16 @@ export const BoardGameMapSection = () => {
 
           <AnimatePresence>
             {pins.map(pin => {
-              const isActive = activePins.includes(pin.id);
+              const isActive = activePinsRef.current.includes(pin.id);
+              if (!isActive) return null;
               const isScanned = Math.abs(pin.left - scanPos) < 2;
-              if (!isActive && !isScanned) return null;
               return (
                 <motion.div
                   key={pin.id}
                   initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: isActive ? 1 : 0.8, opacity: isActive ? 1 : 0.5 }}
+                  animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
                   className="absolute cursor-pointer group/pin"
                   style={{ top: `${pin.top}%`, left: `${pin.left}%`, zIndex: isScanned ? 30 : 20 }}
                 >
@@ -103,7 +114,7 @@ export const BoardGameMapSection = () => {
                       />
                     )}
                     <div className="w-1 h-8 bg-rust mt-[-2px]" />
-                    <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-rust p-2 border-2 border-toxic-green text-toxic-green font-inter font-bold text-[10px] whitespace-nowrap opacity-0 group-hover/pin:opacity-100 transition-opacity pixel-shadow">
+                    <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-rust p-2 border-2 border-toxic-green text-toxic-green font-mono-vt font-bold text-[10px] whitespace-nowrap opacity-0 group-hover/pin:opacity-100 transition-opacity pixel-shadow">
                       RECLAIMABLE_ASSET_FOUND
                     </div>
                   </div>

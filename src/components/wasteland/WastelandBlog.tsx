@@ -45,19 +45,19 @@ export const WastelandBlogSection = ({ posts }: { posts: BlogPost[] }) => {
                   </div>
                 ) : (
                   <div className="h-48 bg-rust/10 border-b-4 border-rust flex items-center justify-center">
-                    <span className="text-rust/30 font-inter font-black tracking-widest uppercase">NO_IMAGE_DATA</span>
+                    <span className="text-rust/30 font-mono-vt font-black tracking-widest uppercase">NO_IMAGE_DATA</span>
                   </div>
                 )}
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-6">
-                    <span className="text-[12px] font-inter font-bold text-parchment bg-rust px-2 py-1 uppercase">FIELD_REPORT</span>
+                    <span className="text-[12px] font-mono-vt font-bold text-parchment bg-rust px-2 py-1 uppercase">FIELD_REPORT</span>
                     <ArrowRight size={16} className="text-toxic-green group-hover:translate-x-2 transition-transform" />
                   </div>
                   <h3 className="text-3xl font-crimson text-rust mb-4 tracking-widest group-hover:text-toxic-green transition-colors leading-tight">
                     {post.title}
                   </h3>
                   {post.description && (
-                    <p className="text-dust font-inter text-sm mb-4 opacity-90 italic leading-relaxed line-clamp-3">
+                    <p className="text-dust font-mono-vt text-sm mb-4 opacity-90 italic leading-relaxed line-clamp-3">
                       "{post.description}"
                     </p>
                   )}
@@ -69,7 +69,7 @@ export const WastelandBlogSection = ({ posts }: { posts: BlogPost[] }) => {
         <div className="mt-16 text-center">
           <Link
             to="/blog"
-            className="inline-block border-4 border-rust text-rust bg-hazard-yellow px-8 py-3 font-inter font-black uppercase tracking-widest hover:bg-toxic-green shadow-[6px_6px_0px_#3d2616] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
+            className="inline-block border-4 border-rust text-rust bg-hazard-yellow px-8 py-3 font-mono-vt font-black uppercase tracking-widest hover:bg-toxic-green shadow-[6px_6px_0px_#3d2616] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
           >
             ACCESS_ALL_ARCHIVES
           </Link>
