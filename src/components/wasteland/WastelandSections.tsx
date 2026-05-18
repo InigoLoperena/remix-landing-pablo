@@ -2,25 +2,24 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Camera, Radar, Target, Skull, Radio, ShieldCheck,
-  Trash2, Trees, Droplets, Zap, Armchair, Flame, Bomb,
+  Armchair, Sofa, Bed, Lamp, Refrigerator, Tv, Monitor
 } from 'lucide-react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import theMachineImg from '@/assets/the-machine.jpg';
 import { WastelandButton, SectionHeading } from './WastelandNav';
 
 export const HeroSection = () => {
-  const [alertsCount, setAlertsCount] = useState(5);
   const [radarPins, setRadarPins] = useState<{ id: number; top: number; left: number; angle: number; color: string; Icon: React.ElementType }[]>([]);
   const [scanAngle, setScanAngle] = useState(0);
   const activePinsRef = useRef<number[]>([]);
   const [renderTrigger, setRenderTrigger] = useState(0);
 
-  const ICONS = [Armchair, Trees, Trash2, Zap, Droplets, Camera, Radio];
+  const ICONS = [Armchair, Sofa, Bed, Lamp, Refrigerator, Tv, Monitor];
 
   useEffect(() => {
     const hour = new Date().getHours();
     const counts = [5, 8, 20, 12, 6, 9];
     const count = counts[hour % counts.length];
-    setAlertsCount(count);
 
     const seededRandom = (seed: number) => {
       let x = Math.sin(seed) * 10000;
@@ -119,7 +118,7 @@ export const HeroSection = () => {
               </div>
               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30">
                 <div className="flex items-center gap-2 text-parchment font-mono-vt font-bold text-[10px] tracking-[0.1em] bg-rust px-4 py-1 border-2 border-rust pixel-shadow whitespace-nowrap">
-                  <ShieldCheck size={12} className="animate-pulse" /> {alertsCount}_CURB_ALERTS_DETECTED
+                  <ShieldCheck size={12} className="animate-pulse" /> {activePinsRef.current.length}_CURB_ALERTS_DETECTED
                 </div>
               </div>
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(57,255,20,0.1)_0%,_transparent_70%)]" />
@@ -170,6 +169,22 @@ export const HeroSection = () => {
           </div>
         </div>
       </div>
+      
+      {/* Responsive Animated Hand Phone */}
+      <motion.div
+        className="absolute bottom-[-10px] right-[-20px] md:bottom-[-20px] md:right-[-40px] lg:bottom-[-40px] lg:right-[-60px] z-20 pointer-events-none origin-bottom-right"
+        initial={{ x: '100vw', y: '50vh', rotate: 20 }}
+        animate={{ x: 0, y: 0, rotate: -5 }}
+        transition={{ type: 'spring', bounce: 0.2, duration: 1.2, delay: 0.5 }}
+      >
+        <motion.img
+          src="/hand-phone.png"
+          alt="GreenHunt App on Phone"
+          className="w-[360px] sm:w-[480px] md:w-[600px] lg:w-[720px] xl:w-[880px] 2xl:w-[1120px] drop-shadow-[15px_15px_0px_rgba(61,38,22,0.4)]"
+          animate={{ y: [0, -15, 0], scale: [1, 1.02, 1] }}
+          transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+        />
+      </motion.div>
     </section>
   );
 };
@@ -261,3 +276,91 @@ export const TheManifestoSection = () => (
     </div>
   </section>
 );
+
+export const AddLootSection = () => (
+  <section className="py-16 bg-parchment/80 border-b-4 border-rust industrial-grid relative overflow-hidden">
+    <div className="container mx-auto px-6 md:px-10 text-center relative z-10">
+      <div className="flex flex-col items-center gap-6 max-w-2xl mx-auto">
+        <button 
+          onClick={() => window.location.href = 'https://green-hunt-web-v1.vercel.app/login'}
+          className="hover:scale-110 transition-transform active:scale-95 drop-shadow-[4px_4px_0px_rgba(61,38,22,0.4)]"
+        >
+          <img src="/custom-plus-btn.png" alt="Add Loot" className="w-24 h-24 object-contain" />
+        </button>
+        <h2 className="text-4xl md:text-5xl font-display text-rust uppercase tracking-wider drop-shadow-[2px_2px_0px_rgba(61,38,22,0.2)]">
+          Found an item? Add it!
+        </h2>
+        <p className="text-rust/80 font-mono-vt text-xl font-bold max-w-md">
+          Report abandoned items on the map and earn GreenPoints.
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
+export const FaqSection = () => {
+  const faqs = [
+    {
+      question: "What is Greenhunt?",
+      answer: "An app to find or post abandoned furniture or other objects on the street."
+    },
+    {
+      question: "How does it work?",
+      answer: "You post a photo and coordinates of the object, other users see it and go get it."
+    },
+    {
+      question: "What do I earn by uploading objects?",
+      answer: "GreenCoins. You can use them to access premium features of the app that will help you get more free objects."
+    },
+    {
+      question: "Are the objects free?",
+      answer: "Yes, they are abandoned objects. By picking them up, you prevent evil waste managers from destroying, burning, or burying them."
+    },
+    {
+      question: "What happens if I go to the location and the object is no longer there?",
+      answer: "It can happen. We are building the best system on the market for sharing abandoned objects, but it's impossible to prevent someone else from taking it."
+    },
+    {
+      question: "What kind of objects can I post?",
+      answer: "Any valuable object abandoned on the street."
+    },
+    {
+      question: "Can I sell these objects?",
+      answer: "Of course! And besides making money, remember that you are helping the planet and you will be able to see your impact measured in water, trees, CO2, and waste every time you rescue an object, whether by posting it or picking it up."
+    },
+    {
+      question: "Does the app cost money?",
+      answer: "It is free and will remain free. Soon, some premium features may have a cost."
+    }
+  ];
+
+  return (
+    <section className="py-16 bg-parchment border-b-4 border-rust industrial-grid relative overflow-hidden">
+      <div className="container mx-auto px-6 md:px-10 max-w-4xl relative z-10">
+        <div className="text-center mb-12">
+          <span className="inline-block px-2 py-1 bg-toxic-green text-rust text-[10px] font-mono-vt font-bold mb-4 tracking-widest uppercase border-2 border-rust shadow-[2px_2px_0px_#3d2616]">
+            KNOWLEDGE BASE
+          </span>
+          <h2 className="text-5xl md:text-6xl font-display text-rust uppercase tracking-wider drop-shadow-[2px_2px_0px_rgba(61,38,22,0.2)]">
+            FAQ
+          </h2>
+        </div>
+        
+        <div className="bg-rust/5 p-6 md:p-8 border-4 border-rust pixel-shadow">
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="border-b-2 border-rust last:border-0">
+                <AccordionTrigger className="text-left font-mono-vt font-bold text-xl md:text-2xl text-rust hover:text-toxic-green hover:no-underline py-6 data-[state=open]:text-toxic-green transition-colors">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="font-mono-vt text-lg md:text-xl text-rust/80 pb-6 leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </section>
+  );
+};

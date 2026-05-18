@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Impact&family=Bebas+Neue&family=VT323&family=Silkscreen:wght@400;700&family=Special+Elite&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -635,4 +633,13 @@ html {
 .wasteland-bg {
   background-color: #f8df9e;
   background-image: url("https://www.transparenttextures.com/patterns/old-map.png");
+}
+
+/* Custom cursors */
+html, body, * {
+  cursor: url('/custom-pointer.png'), auto !important;
+}
+
+a, button, [role="button"], input[type="submit"], input[type="button"], .cursor-pointer {
+  cursor: url('/custom-pointer.png'), pointer !important;
 }

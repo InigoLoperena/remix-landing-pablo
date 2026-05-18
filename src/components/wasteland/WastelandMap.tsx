@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Armchair, Trees, Trash2, Zap, Flame, Droplets, Bomb, Camera } from 'lucide-react';
+import { Armchair, Sofa, Bed, Lamp, Refrigerator, Tv, Monitor, WashingMachine } from 'lucide-react';
 import nycMapImg from '@/assets/nyc-map.jpg';
 
 export const BoardGameMapSection = () => {
@@ -9,18 +9,18 @@ export const BoardGameMapSection = () => {
   const [renderTrigger, setRenderTrigger] = useState(0);
 
   const pins = [
-    { id: 0, top: 30, left: 20, icon: <Armchair size={16} /> },
-    { id: 1, top: 50, left: 70, icon: <Trees size={16} /> },
-    { id: 2, top: 70, left: 40, icon: <Trash2 size={16} /> },
-    { id: 3, top: 40, left: 60, icon: <Zap size={16} /> },
-    { id: 4, top: 20, left: 45, icon: <Flame size={16} /> },
-    { id: 5, top: 60, left: 15, icon: <Droplets size={16} /> },
-    { id: 6, top: 80, left: 85, icon: <Bomb size={16} /> },
-    { id: 7, top: 15, left: 75, icon: <Camera size={16} /> },
-    { id: 8, top: 45, left: 30, icon: <Trees size={16} /> },
-    { id: 9, top: 35, left: 85, icon: <Trash2 size={16} /> },
-    { id: 10, top: 65, left: 55, icon: <Zap size={16} /> },
-    { id: 11, top: 85, left: 25, icon: <Armchair size={16} /> },
+    { id: 0, top: 30, left: 10, icon: <Armchair size={16} /> },
+    { id: 1, top: 50, left: 80, icon: <Sofa size={16} /> },
+    { id: 2, top: 75, left: 70, icon: <Bed size={16} /> },
+    { id: 3, top: 40, left: 45, icon: <Lamp size={16} /> },
+    { id: 4, top: 20, left: 50, icon: <Refrigerator size={16} /> },
+    { id: 5, top: 60, left: 10, icon: <Tv size={16} /> },
+    { id: 6, top: 80, left: 80, icon: <Monitor size={16} /> },
+    { id: 7, top: 15, left: 85, icon: <WashingMachine size={16} /> },
+    { id: 8, top: 55, left: 35, icon: <Sofa size={16} /> },
+    { id: 9, top: 25, left: 80, icon: <Bed size={16} /> },
+    { id: 10, top: 65, left: 65, icon: <Lamp size={16} /> },
+    { id: 11, top: 80, left: 10, icon: <Armchair size={16} /> },
   ];
 
   useEffect(() => {

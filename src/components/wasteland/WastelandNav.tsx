@@ -6,7 +6,7 @@ import { Radio } from 'lucide-react';
 export const Logo = () => (
   <div className="flex items-center">
     <img
-      src="/logo-32.png"
+      src="/custom-logo.png"
       alt="GreenHunt"
       className="h-10 w-auto object-contain"
       style={{ imageRendering: 'pixelated' }}
@@ -67,14 +67,14 @@ export const SectionHeading = ({
 
 export const WastelandNavbar = () => (
   <header className="h-20 fixed top-0 left-0 right-0 z-50 border-b-4 border-rust px-10 flex items-center justify-between bg-rust text-parchment scrap-border">
-    <div className="flex items-center gap-6">
+    <div className="flex items-center gap-6 relative z-10">
       <Logo />
-      <div className="h-8 w-1 bg-toxic-green/40 hidden sm:block" />
+      <div className="h-8 w-1 bg-toxic-green/40 hidden sm:block mx-4" />
       <span className="text-xs font-mono-vt text-parchment/60 tracking-[0.2em] uppercase hidden lg:block">
         NYC / GREEN_HUNT
       </span>
     </div>
-    <div className="flex items-center gap-8 text-[11px] font-mono-vt tracking-widest font-bold">
+    <div className="flex items-center gap-8 text-[11px] font-mono-vt tracking-widest font-bold relative z-10">
       <div className="hidden md:flex items-center gap-2 text-toxic-green/60">
         <span className="text-[8px]">SNR</span>
         <div className="flex gap-0.5 items-end h-3">

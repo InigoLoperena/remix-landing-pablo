@@ -40,7 +40,7 @@ export const ImpactPanelSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <div className="parchment p-8 scrap-border pixel-shadow relative overflow-hidden">
             <div className="mb-8 text-center border-b-4 border-rust pb-4 flex flex-col items-center justify-center gap-2">
-              <img src="/coin-32.png" alt="Green Point" className="w-16 h-16 object-contain drop-shadow-[4px_4px_0px_rgba(61,38,22,0.4)]" style={{ imageRendering: 'pixelated' }} />
+              <img src="/custom-greencoin.png" alt="Green Point" className="w-16 h-16 object-contain drop-shadow-[4px_4px_0px_rgba(61,38,22,0.4)]" style={{ imageRendering: 'pixelated' }} />
               <h3 className="text-3xl font-pixel text-rust">120 Green Points</h3>
             </div>
             <div className="space-y-6">
