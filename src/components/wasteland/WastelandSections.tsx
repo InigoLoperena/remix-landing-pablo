@@ -9,9 +9,10 @@ import theMachineImg from '@/assets/the-machine.jpg';
 import { WastelandButton, SectionHeading } from './WastelandNav';
 
 export const HeroSection = () => {
-  const [radarPins, setRadarPins] = useState<{ id: number; top: number; left: number; angle: number; color: string; Icon: React.ElementType }[]>([]);
+  const [radarPins, setRadarPins] = useState<{ id: number; top: number; left: number; angle: number; Icon: React.ElementType }[]>([]);
   const [scanAngle, setScanAngle] = useState(0);
   const activePinsRef = useRef<number[]>([]);
+  const pinAgesRef = useRef<Record<number, number>>({});
   const [renderTrigger, setRenderTrigger] = useState(0);
 
   const ICONS = [Armchair, Sofa, Bed, Lamp, Refrigerator, Tv, Monitor];
@@ -35,7 +36,6 @@ export const HeroSection = () => {
       let angle = angleRad * (180 / Math.PI);
       if (angle < 0) angle += 360;
 
-      const isToxic = seededRandom(hour * 300 + i) > 0.3;
       const Icon = ICONS[Math.floor(seededRandom(hour * 400 + i) * ICONS.length)];
 
       return {
@@ -44,11 +44,13 @@ export const HeroSection = () => {
         left,
         angle,
         Icon,
-        color: isToxic ? 'text-toxic-green' : 'text-parchment',
       };
     });
     setRadarPins(newPins);
     activePinsRef.current = newPins.map(p => p.id);
+    const initialAges: Record<number, number> = {};
+    newPins.forEach(p => { initialAges[p.id] = 0; });
+    pinAgesRef.current = initialAges;
   }, []);
 
   useEffect(() => {
@@ -63,10 +65,20 @@ export const HeroSection = () => {
           else passed = pin.angle >= prev || pin.angle < next;
 
           if (passed) {
+            // Increase age of pin if it's active
+            if (activePinsRef.current.includes(pin.id)) {
+              pinAgesRef.current[pin.id] = (pinAgesRef.current[pin.id] || 0) + 1;
+              changed = true;
+            }
+
             if (Math.random() < 0.15) {
               const isActive = activePinsRef.current.includes(pin.id);
-              if (isActive) activePinsRef.current = activePinsRef.current.filter(id => id !== pin.id);
-              else activePinsRef.current.push(pin.id);
+              if (isActive) {
+                activePinsRef.current = activePinsRef.current.filter(id => id !== pin.id);
+              } else {
+                activePinsRef.current.push(pin.id);
+                pinAgesRef.current[pin.id] = 0; // Reset age for new alerts
+              }
               changed = true;
             }
           }
@@ -82,7 +94,7 @@ export const HeroSection = () => {
   return (
     <section 
       className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden border-b-4 border-rust bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+      style={{ backgroundImage: "url('/hero-bg-v2.jpg')" }}
     >
       {/* Overlay to maintain text readability against the complex background */}
       <div className="absolute inset-0 bg-parchment/50 z-0 backdrop-blur-[1px]"></div>
@@ -136,6 +148,9 @@ export const HeroSection = () => {
                 const isActive = activePinsRef.current.includes(pin.id);
                 if (!isActive) return null;
 
+                const age = pinAgesRef.current[pin.id] || 0;
+                const pinColor = age < 4 ? 'text-toxic-green' : 'text-parchment';
+
                 const diff = Math.abs(scanAngle - pin.angle);
                 const distance = Math.min(diff, 360 - diff);
                 const isScanned = distance < 15;
@@ -152,7 +167,7 @@ export const HeroSection = () => {
                   >
                     <div className="relative flex items-center justify-center">
                       <motion.div
-                        className={`p-1.5 rounded-full border-2 border-rust bg-rust/80 ${pin.color} pixel-shadow`}
+                        className={`p-1.5 rounded-full border-2 border-rust bg-rust/80 ${pinColor} pixel-shadow`}
                         animate={isScanned ? { scale: [1, 1.4, 1], filter: ['brightness(1)', 'brightness(2)', 'brightness(1)'] } : {}}
                         transition={{ duration: 0.4 }}
                       >
@@ -160,7 +175,7 @@ export const HeroSection = () => {
                       </motion.div>
                       {isScanned && (
                         <motion.div
-                          className={`absolute inset-0 border-2 border-current ${pin.color} rounded-full pointer-events-none`}
+                          className={`absolute inset-0 border-2 border-current ${pinColor} rounded-full pointer-events-none`}
                           initial={{ scale: 1, opacity: 0.8 }}
                           animate={{ scale: 2.5, opacity: 0 }}
                           transition={{ duration: 0.5 }}

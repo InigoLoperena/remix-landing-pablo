@@ -1,14 +1,33 @@
+import { useState, useEffect } from 'react';
 import { Zap, Droplets, Trees, Trash2, Armchair, Skull, Instagram, Youtube, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { WastelandButton, SectionHeading } from './WastelandNav';
 import { Input } from '@/components/ui/input';
 
 export const ImpactPanelSection = () => {
+  const [itemsRescued, setItemsRescued] = useState(41);
+  const [co2Saved, setCo2Saved] = useState(55);
+  const [waterSaved, setWaterSaved] = useState(72);
+  const [treesSaved, setTreesSaved] = useState(6);
+  const [wasteDiverted, setWasteDiverted] = useState(85);
+  const [greenPoints, setGreenPoints] = useState(120);
+
+  useEffect(() => {
+    const startOfYear = new Date(new Date().getFullYear(), 0, 1);
+    const dayOfYear = Math.floor((Date.now() - startOfYear.getTime()) / 86400000);
+    setItemsRescued(41 + dayOfYear);
+    setCo2Saved(55 + dayOfYear * 1.5);
+    setWaterSaved(72 + dayOfYear * 2);
+    setTreesSaved(6 + Math.floor(dayOfYear / 10));
+    setWasteDiverted(85 + dayOfYear * 1.2);
+    setGreenPoints(120 + dayOfYear * 10);
+  }, []);
+
   const stats = [
-    { label: 'CO2 Saved', value: '55 lb.', icon: <img src="https://api.iconify.design/pixelarticons/cloud.svg?color=%23699e4b" alt="CO2" className="w-8 h-8 object-contain" style={{ imageRendering: 'pixelated' }} /> },
-    { label: 'Water Saved', value: '72 gal.', icon: <img src="https://api.iconify.design/pixelarticons/drop.svg?color=%233ea7e5" alt="Water" className="w-8 h-8 object-contain" style={{ imageRendering: 'pixelated' }} /> },
-    { label: 'Trees Saved', value: '6 TREES', icon: <img src="https://api.iconify.design/pixelarticons/tree.svg?color=%237ac142" alt="Tree" className="w-8 h-8 object-contain" style={{ imageRendering: 'pixelated' }} /> },
-    { label: 'Waste Diverted', value: '85 lb.', icon: <img src="https://api.iconify.design/pixelarticons/trash.svg?color=%239b8676" alt="Waste" className="w-8 h-8 object-contain" style={{ imageRendering: 'pixelated' }} /> },
+    { label: 'CO2 Saved', value: `${co2Saved.toFixed(1)} lb.`, icon: <img src="https://api.iconify.design/pixelarticons/cloud.svg?color=%23699e4b" alt="CO2" className="w-8 h-8 object-contain" style={{ imageRendering: 'pixelated' }} /> },
+    { label: 'Water Saved', value: `${waterSaved.toFixed(0)} gal.`, icon: <img src="https://api.iconify.design/pixelarticons/drop.svg?color=%233ea7e5" alt="Water" className="w-8 h-8 object-contain" style={{ imageRendering: 'pixelated' }} /> },
+    { label: 'Trees Saved', value: `${treesSaved} TREES`, icon: <img src="https://api.iconify.design/pixelarticons/tree.svg?color=%237ac142" alt="Tree" className="w-8 h-8 object-contain" style={{ imageRendering: 'pixelated' }} /> },
+    { label: 'Waste Diverted', value: `${wasteDiverted.toFixed(1)} lb.`, icon: <img src="https://api.iconify.design/pixelarticons/trash.svg?color=%239b8676" alt="Waste" className="w-8 h-8 object-contain" style={{ imageRendering: 'pixelated' }} /> },
   ];
 
   return (
@@ -38,38 +57,13 @@ export const ImpactPanelSection = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div className="parchment p-8 scrap-border pixel-shadow relative overflow-hidden">
-            <div className="mb-8 text-center border-b-4 border-rust pb-4 flex flex-col items-center justify-center gap-2">
-              <img src="/custom-greencoin.png" alt="Green Point" className="w-16 h-16 object-contain drop-shadow-[4px_4px_0px_rgba(61,38,22,0.4)]" style={{ imageRendering: 'pixelated' }} />
-              <h3 className="text-3xl font-pixel text-rust">120 Green Points</h3>
-            </div>
-            <div className="space-y-6">
-              {stats.map((stat, idx) => (
-                <div key={idx} className="flex items-center justify-between group">
-                  <div className="flex items-center gap-4">
-                     <div className="text-rust p-2 bg-rust/10 border-2 border-rust">{stat.icon}</div>
-                     <span className="text-lg md:text-xl font-pixel text-rust group-hover:text-toxic-green transition-colors">{stat.label}</span>
-                  </div>
-                  <span className="text-xl md:text-2xl font-mono-vt font-bold text-rust bg-parchment px-2 py-1 border-2 border-rust">{stat.value}</span>
-                </div>
-              ))}
-              <div className="mt-8 pt-8 border-t-4 border-rust flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-toxic-green border-2 border-rust flex items-center justify-center p-2 shadow-[2px_2px_0px_#3d2616]">
-                    <Armchair className="text-rust" size={32} />
-                  </div>
-                  <span className="text-xl md:text-2xl font-pixel text-rust tracking-widest leading-tight">41 Items Rescued</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-parchment/80 p-6 scrap-border pixel-shadow overflow-hidden relative">
+          {/* Left Side: Ranking */}
+          <div className="bg-parchment/80 p-6 scrap-border pixel-shadow overflow-hidden relative flex flex-col">
             <div className="text-center mb-6">
               <h3 className="text-2xl font-pixel text-rust tracking-widest">New York Ranking</h3>
               <div className="text-[10px] font-mono-vt font-bold text-rust/80 bg-toxic-green inline-block px-2 py-1 border border-rust mt-2">SECURE_FEED // LIVE_STATUS</div>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 flex-1">
               {[
                 { name: 'GaiaGuard Nick', points: '3,100', rank: '#1', color: 'text-toxic-green' },
                 { name: 'EcoWatden',       points: '2,950', rank: '#2', color: 'text-rust' },
@@ -96,6 +90,43 @@ export const ImpactPanelSection = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Right Side: Impact Stats */}
+          <div className="parchment p-8 scrap-border pixel-shadow relative overflow-hidden flex flex-col">
+            <div className="mb-6 text-center border-b-4 border-rust pb-4">
+              <h3 className="text-2xl font-pixel text-rust tracking-widest leading-tight uppercase">Cumulative Rescue Impact</h3>
+            </div>
+            
+            <div className="space-y-6 flex-1">
+              {stats.map((stat, idx) => (
+                <div key={idx} className="flex items-center justify-between group">
+                  <div className="flex items-center gap-4">
+                     <div className="text-rust p-2 bg-rust/10 border-2 border-rust">{stat.icon}</div>
+                     <span className="text-lg md:text-xl font-pixel text-rust group-hover:text-toxic-green transition-colors">{stat.label}</span>
+                  </div>
+                  <span className="text-xl md:text-2xl font-mono-vt font-bold text-rust bg-parchment px-2 py-1 border-2 border-rust">{stat.value}</span>
+                </div>
+              ))}
+              
+              <div className="mt-6 pt-6 flex items-center justify-between border-b-4 border-dashed border-rust pb-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-toxic-green border-2 border-rust flex items-center justify-center p-2 shadow-[2px_2px_0px_#3d2616]">
+                    <Armchair className="text-rust" size={32} />
+                  </div>
+                  <span className="text-xl md:text-2xl font-pixel text-rust tracking-widest leading-tight">Items Rescued</span>
+                </div>
+                <span className="text-2xl md:text-3xl font-mono-vt font-black text-toxic-green drop-shadow-[2px_2px_0px_#3d2616]">{itemsRescued}</span>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-6 border-t-4 border-rust flex flex-col items-center justify-center gap-3 bg-rust/10 p-4 border-2 pixel-shadow">
+              <span className="font-mono-vt text-sm font-bold text-rust uppercase tracking-widest">= EARNED REWARD =</span>
+              <div className="flex items-center justify-center gap-4">
+                <img src="/custom-greencoin.png" alt="Green Point" className="w-12 h-12 object-contain drop-shadow-[2px_2px_0px_rgba(61,38,22,0.4)]" style={{ imageRendering: 'pixelated' }} />
+                <h3 className="text-4xl font-pixel text-toxic-green drop-shadow-[2px_2px_0px_#3d2616]">+{greenPoints} GP</h3>
+              </div>
             </div>
           </div>
         </div>
