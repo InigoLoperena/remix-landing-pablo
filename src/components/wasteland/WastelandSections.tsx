@@ -80,7 +80,12 @@ export const HeroSection = () => {
   }, [radarPins]);
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden border-b-4 border-rust">
+    <section 
+      className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden border-b-4 border-rust bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+    >
+      {/* Overlay to maintain text readability against the complex background */}
+      <div className="absolute inset-0 bg-parchment/50 z-0 backdrop-blur-[1px]"></div>
       <div className="container mx-auto px-6 md:px-10 relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
