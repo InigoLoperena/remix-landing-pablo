@@ -93,7 +93,7 @@ export const HeroSection = () => {
 
   return (
     <section 
-      className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden border-b-4 border-rust bg-cover bg-center bg-no-repeat"
+      className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden border-b-4 border-rust bg-cover bg-left md:bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/hero-bg-v3.jpg')" }}
     >
       {/* Overlay to maintain text readability against the complex background */}
@@ -198,9 +198,9 @@ export const HeroSection = () => {
         transition={{ type: 'spring', bounce: 0.2, duration: 1.2, delay: 0.5 }}
       >
         <motion.img
-          src="/hand-phone.png"
+          src="/hand-app.png"
           alt="GreenHunt App on Phone"
-          className="w-[360px] sm:w-[480px] md:w-[600px] lg:w-[720px] xl:w-[880px] 2xl:w-[1120px] drop-shadow-[15px_15px_0px_rgba(61,38,22,0.4)]"
+          className="w-[360px] sm:w-[480px] md:w-[480px] lg:w-[576px] xl:w-[704px] 2xl:w-[896px] drop-shadow-[15px_15px_0px_rgba(61,38,22,0.4)]"
           animate={{ y: [0, -15, 0], scale: [1, 1.02, 1] }}
           transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
         />
