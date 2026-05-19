@@ -94,7 +94,7 @@ export const HeroSection = () => {
   return (
     <section 
       className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden border-b-4 border-rust bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/hero-bg-v2.jpg')" }}
+      style={{ backgroundImage: "url('/hero-bg-v3.jpg')" }}
     >
       {/* Overlay to maintain text readability against the complex background */}
       <div className="absolute inset-0 bg-parchment/50 z-0 backdrop-blur-[1px]"></div>

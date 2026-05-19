@@ -7,7 +7,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { StructuredData } from '@/components/StructuredData';
 
 // Wasteland components
-import { WastelandAudio } from '@/components/wasteland/WastelandEffects';
+
 import { WastelandNavbar, WastelandTicker } from '@/components/wasteland/WastelandNav';
 import { HeroSection, TheCoreLoopSection, TheManifestoSection, AddLootSection, FaqSection } from '@/components/wasteland/WastelandSections';
 import { BoardGameMapSection } from '@/components/wasteland/WastelandMap';
@@ -51,8 +51,7 @@ export default function LandingPage() {
     <div className="wasteland-root selection:bg-toxic-green selection:text-black">
       <StructuredData />
 
-      {/* Atmospheric overlays */}
-      <WastelandAudio />
+
 
       {/* Navigation */}
       <WastelandNavbar />
