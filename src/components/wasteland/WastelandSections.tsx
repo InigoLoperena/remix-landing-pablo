@@ -98,14 +98,13 @@ export const HeroSection = () => {
     }, 25);
     return () => clearInterval(interval);
   }, [radarPins]);
-
   return (
     <section 
       className="relative min-h-screen flex items-center pt-32 md:pt-40 pb-16 overflow-hidden border-b-4 border-rust bg-cover bg-left md:bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${isMobile ? '/hero-bg-mobile.webp' : '/hero-bg-v3.jpg'})` }}
+      style={{ backgroundImage: `url(${isMobile ? '/vertical-hero.webp' : '/hero-bg-v3.jpg'})` }}
     >
       {/* Overlay to maintain text readability against the complex background */}
-      <div className="absolute inset-0 bg-parchment/50 z-0 backdrop-blur-[1px]"></div>
+      <div className="absolute inset-0 bg-parchment/40 md:bg-parchment/50 z-0 backdrop-blur-0 md:backdrop-blur-[1px]"></div>
       <div className="container mx-auto px-6 md:px-10 relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
@@ -128,71 +127,76 @@ export const HeroSection = () => {
                 OPEN THE RADAR
               </WastelandButton>
               <div className="flex flex-col justify-center">
-                <p className="text-[11px] font-mono-vt font-bold tracking-widest text-rust uppercase">Instant Access</p>
-                <p className="text-[10px] font-mono-vt text-toxic-green font-bold uppercase">No Apps. Just Survival.</p>
+                <p className="text-base md:text-lg lg:text-xl font-mono-vt font-bold tracking-widest text-rust uppercase drop-shadow-[1.5px_1.5px_0px_rgba(61,38,22,0.5)]">Instant Access</p>
+                <p className="text-base md:text-lg lg:text-xl font-mono-vt text-toxic-green font-bold uppercase tracking-wider drop-shadow-[1.5px_1.5px_0px_#3d2616]">No Apps. Just Survival.</p>
               </div>
             </div>
           </motion.div>
 
           <div className="relative flex flex-col items-center justify-center w-full lg:w-auto">
-            <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px] border-4 border-rust bg-parchment rounded-full flex items-center justify-center overflow-hidden scrap-border pixel-shadow">
-              <div className="absolute top-4 sm:top-8 left-1/2 -translate-x-1/2 z-30">
-                <div className="flex items-center gap-2 text-toxic-green font-mono-vt font-bold text-[10px] tracking-[0.1em] bg-rust px-4 py-1 border-2 border-toxic-green/50 pixel-shadow text-parchment whitespace-nowrap">
-                  <Radio size={12} className="animate-flicker" /> WASTELAND_RADAR: ACTIVE
+            <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px] shrink-0">
+              {/* Banners placed OUTSIDE the circular container so they never clip */}
+              <div className="absolute -top-4 sm:-top-5 md:-top-6 left-1/2 -translate-x-1/2 z-30">
+                <div className="flex items-center gap-2 text-toxic-green font-mono-vt font-bold text-xs md:text-sm tracking-[0.1em] bg-rust px-5 py-1.5 border-2 border-toxic-green/50 pixel-shadow text-parchment whitespace-nowrap">
+                  <Radio size={14} className="animate-flicker" /> WASTELAND_RADAR: ACTIVE
                 </div>
               </div>
-              <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-30">
-                <div className="flex items-center gap-2 text-parchment font-mono-vt font-bold text-[10px] tracking-[0.1em] bg-rust px-4 py-1 border-2 border-rust pixel-shadow whitespace-nowrap">
-                  <ShieldCheck size={12} className="animate-pulse" /> {activePinsRef.current.length}_CURB_ALERTS_DETECTED
+              <div className="absolute -bottom-4 sm:-bottom-5 md:-bottom-6 left-1/2 -translate-x-1/2 z-30">
+                <div className="flex items-center gap-2 text-parchment font-mono-vt font-bold text-xs md:text-sm tracking-[0.1em] bg-rust px-5 py-1.5 border-2 border-rust pixel-shadow whitespace-nowrap">
+                  <ShieldCheck size={14} className="animate-pulse" /> {activePinsRef.current.length}_CURB_ALERTS_DETECTED
                 </div>
               </div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(57,255,20,0.1)_0%,_transparent_70%)]" />
-              <div className="absolute w-[66%] h-[66%] border border-toxic-green/10 rounded-full animate-[pulse_6s_infinite]" />
-              <div className="absolute w-[33%] h-[33%] border border-toxic-green/20 rounded-full animate-[pulse_4s_infinite]" />
-              <div className="absolute top-1/2 left-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent to-toxic-green origin-left z-10"
-                style={{ transform: `translateY(-50%) rotate(${scanAngle}deg)` }}
-              />
-              {radarPins.map((pin) => {
-                const isActive = activePinsRef.current.includes(pin.id);
-                if (!isActive) return null;
 
-                const age = pinAgesRef.current[pin.id] || 0;
-                const pinColor = age < 4 ? 'text-toxic-green' : 'text-parchment';
+              {/* Inner Circular Radar Grid (Overflow-Hidden) */}
+              <div className="absolute inset-0 border-4 border-rust bg-parchment rounded-full overflow-hidden scrap-border pixel-shadow flex items-center justify-center">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(57,255,20,0.1)_0%,_transparent_70%)]" />
+                <div className="absolute w-[66%] h-[66%] border border-toxic-green/10 rounded-full animate-[pulse_6s_infinite]" />
+                <div className="absolute w-[33%] h-[33%] border border-toxic-green/20 rounded-full animate-[pulse_4s_infinite]" />
+                <div className="absolute top-1/2 left-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent to-toxic-green origin-left z-10"
+                  style={{ transform: `translateY(-50%) rotate(${scanAngle}deg)` }}
+                />
+                {radarPins.map((pin) => {
+                  const isActive = activePinsRef.current.includes(pin.id);
+                  if (!isActive) return null;
 
-                const diff = Math.abs(scanAngle - pin.angle);
-                const distance = Math.min(diff, 360 - diff);
-                const isScanned = distance < 15;
+                  const age = pinAgesRef.current[pin.id] || 0;
+                  const pinColor = age < 4 ? 'text-toxic-green' : 'text-parchment';
 
-                return (
-                  <motion.div
-                    key={pin.id}
-                    className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
-                    style={{ top: `${pin.top}%`, left: `${pin.left}%` }}
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="relative flex items-center justify-center">
-                      <motion.div
-                        className={`p-1 sm:p-1.5 rounded-full border-2 border-rust bg-rust/80 ${pinColor} pixel-shadow`}
-                        animate={isScanned ? { scale: [1, 1.4, 1], filter: ['brightness(1)', 'brightness(2)', 'brightness(1)'] } : {}}
-                        transition={{ duration: 0.4 }}
-                      >
-                        <pin.Icon className="w-[10.5px] h-[10.5px] sm:w-3.5 sm:h-3.5" />
-                      </motion.div>
-                      {isScanned && (
+                  const diff = Math.abs(scanAngle - pin.angle);
+                  const distance = Math.min(diff, 360 - diff);
+                  const isScanned = distance < 15;
+
+                  return (
+                    <motion.div
+                      key={pin.id}
+                      className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
+                      style={{ top: `${pin.top}%`, left: `${pin.left}%` }}
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="relative flex items-center justify-center">
                         <motion.div
-                          className={`absolute inset-0 border-2 border-current ${pinColor} rounded-full pointer-events-none`}
-                          initial={{ scale: 1, opacity: 0.8 }}
-                          animate={{ scale: 2.5, opacity: 0 }}
-                          transition={{ duration: 0.5 }}
-                        />
-                      )}
-                    </div>
-                  </motion.div>
-                );
-              })}
+                          className={`p-1 sm:p-1.5 rounded-full border-2 border-rust bg-rust/80 ${pinColor} pixel-shadow`}
+                          animate={isScanned ? { scale: [1, 1.4, 1], filter: ['brightness(1)', 'brightness(2)', 'brightness(1)'] } : {}}
+                          transition={{ duration: 0.4 }}
+                        >
+                          <pin.Icon className="w-[10.5px] h-[10.5px] sm:w-3.5 sm:h-3.5" />
+                        </motion.div>
+                        {isScanned && (
+                          <motion.div
+                            className={`absolute inset-0 border-2 border-current ${pinColor} rounded-full pointer-events-none`}
+                            initial={{ scale: 1, opacity: 0.8 }}
+                            animate={{ scale: 2.5, opacity: 0 }}
+                            transition={{ duration: 0.5 }}
+                          />
+                        )}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Mobile only Button directly under the Radar */}
@@ -201,8 +205,8 @@ export const HeroSection = () => {
                 OPEN THE RADAR
               </WastelandButton>
               <div className="flex flex-col justify-center">
-                <p className="text-[11px] font-mono-vt font-bold tracking-widest text-rust uppercase">Instant Access</p>
-                <p className="text-[10px] font-mono-vt text-toxic-green font-bold uppercase">No Apps. Just Survival.</p>
+                <p className="text-base md:text-lg lg:text-xl font-mono-vt font-bold tracking-widest text-rust uppercase drop-shadow-[1.5px_1.5px_0px_rgba(61,38,22,0.5)]">Instant Access</p>
+                <p className="text-base md:text-lg lg:text-xl font-mono-vt text-toxic-green font-bold uppercase tracking-wider drop-shadow-[1.5px_1.5px_0px_#3d2616]">No Apps. Just Survival.</p>
               </div>
             </div>
           </div>
@@ -255,7 +259,7 @@ export const TheCoreLoopSection = () => {
           {steps.map((step, idx) => (
             <div key={idx} className={`relative group bg-rust border-4 border-rust p-6 scrap-border pixel-shadow flex flex-col justify-between ${idx === 1 ? '' : 'overflow-hidden'}`}>
               {idx === 1 && (
-                <div className="md:hidden absolute right-[-60px] top-[5px] w-[330px] pointer-events-none z-10 origin-top-right rotate-[-12deg]">
+                <div className="md:hidden absolute right-[50px] top-[5px] w-[330px] pointer-events-none z-10 origin-top-right rotate-[-12deg]">
                   <img
                     src="/hand-app.png"
                     alt="Hand App"

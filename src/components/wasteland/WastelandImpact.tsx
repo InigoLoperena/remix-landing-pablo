@@ -133,10 +133,10 @@ export const ImpactPanelSection = () => {
 };
 
 interface FinalCtaProps {
-  email: string;
-  loading: boolean;
-  onEmailChange: (v: string) => void;
-  onSubmit: (e: React.FormEvent) => void;
+  email?: string;
+  loading?: boolean;
+  onEmailChange?: (v: string) => void;
+  onSubmit?: (e: React.FormEvent) => void;
 }
 
 export const FinalCtaSection = ({ email, loading, onEmailChange, onSubmit }: FinalCtaProps) => (
@@ -161,31 +161,6 @@ export const FinalCtaSection = ({ email, loading, onEmailChange, onSubmit }: Fin
         >
           START HUNTING NOW
         </WastelandButton>
-
-        {/* Waitlist signup */}
-        <div className="w-full max-w-md mt-8">
-          <p className="text-[12px] font-mono-vt font-bold text-rust tracking-[0.2em] uppercase mb-4 bg-toxic-green inline-block px-3 py-1 border-2 border-rust shadow-[2px_2px_0px_#3d2616]">
-            OR GET BETA & PROJECT UPDATES
-          </p>
-          <form onSubmit={onSubmit} className="flex flex-col sm:flex-row gap-3">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={e => onEmailChange(e.target.value)}
-              required
-              disabled={loading}
-              className="flex-1 bg-parchment border-4 border-rust text-rust placeholder:text-rust/60 font-mono-vt text-sm font-bold shadow-[inset_2px_2px_0px_rgba(61,38,22,0.2)] rounded-none"
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-6 py-3 bg-toxic-green !text-rust font-mono-vt font-black border-4 border-rust uppercase tracking-widest hover:bg-toxic-green/80 shadow-[4px_4px_0px_#3d2616] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all disabled:opacity-50"
-            >
-              {loading ? 'SENDING...' : 'GET BETA'}
-            </button>
-          </form>
-        </div>
 
         <div className="flex items-center gap-4 text-[12px] font-mono-vt font-bold tracking-widest text-parchment italic uppercase bg-rust px-4 py-2 border-4 border-parchment pixel-shadow">
           <Skull size={14} className="text-parchment" /> REGISTER_ENCRYPTED // SURVIVE THE MACHINE
