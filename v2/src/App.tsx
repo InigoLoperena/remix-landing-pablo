@@ -685,7 +685,7 @@ const ImpactPanel = () => {
           <div className="parchment p-8 pixel-shadow border-4 border-[#8B4513] relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 hazard-stripes opacity-20"></div>
             <div className="mb-8 text-center border-b-2 border-rust/30 pb-4">
-              <h3 className="text-3xl font-display text-rust">+120 Green Points</h3>
+              <h3 className="text-3xl font-display text-rust">+120 GreenCoins</h3>
             </div>
             
             <div className="space-y-6">
@@ -735,7 +735,7 @@ const ImpactPanel = () => {
                     </div>
                   </div>
                   <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 border-white/5 pt-2 sm:pt-0">
-                    <div className="text-toxic-green font-pixel text-[10px] sm:text-xs shrink-0">{user.points} <span className="sm:hidden">GP</span><span className="hidden sm:inline">GreenPoints</span></div>
+                    <div className="text-toxic-green font-pixel text-[10px] sm:text-xs shrink-0">{user.points} <span className="sm:hidden">GC</span><span className="hidden sm:inline">GreenCoins</span></div>
                     <button className="text-[8px] font-pixel text-rust uppercase hover:text-white transition-colors">View Profile</button>
                   </div>
                 </div>

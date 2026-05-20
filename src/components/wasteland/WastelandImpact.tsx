@@ -10,7 +10,7 @@ export const ImpactPanelSection = () => {
   const [waterSaved, setWaterSaved] = useState(72);
   const [treesSaved, setTreesSaved] = useState(6);
   const [wasteDiverted, setWasteDiverted] = useState(85);
-  const [greenPoints, setGreenPoints] = useState(120);
+  const [greenCoins, setGreenCoins] = useState(120);
 
   useEffect(() => {
     const startOfYear = new Date(new Date().getFullYear(), 0, 1);
@@ -20,7 +20,7 @@ export const ImpactPanelSection = () => {
     setWaterSaved(72 + dayOfYear * 2);
     setTreesSaved(6 + Math.floor(dayOfYear / 10));
     setWasteDiverted(85 + dayOfYear * 1.2);
-    setGreenPoints(120 + dayOfYear * 10);
+    setGreenCoins(120 + dayOfYear * 10);
   }, []);
 
   const stats = [
@@ -34,9 +34,6 @@ export const ImpactPanelSection = () => {
     <section className="py-16 bg-parchment border-b-4 border-rust industrial-grid">
       <div className="container mx-auto px-6 md:px-10">
         <div className="mb-16 text-center max-w-4xl mx-auto">
-          <span className="inline-block px-2 py-1 bg-toxic-green text-rust text-[10px] font-mono-vt font-bold mb-4 tracking-widest uppercase border-2 border-rust shadow-[2px_2px_0px_#3d2616]">
-            GAMIFICATION
-          </span>
           <h2 className="text-5xl md:text-7xl font-display text-rust mb-6 drop-shadow-[2px_2px_0px_rgba(61,38,22,0.3)] tracking-wider leading-none uppercase">
             TURN YOUR DAILY WALK INTO A SIDE QUEST.
           </h2>
@@ -85,7 +82,7 @@ export const ImpactPanelSection = () => {
                   </div>
                   <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 border-rust/10 pt-2 sm:pt-0">
                     <div className="text-toxic-green font-mono-vt font-bold text-xs sm:text-sm shrink-0">
-                      {user.points} <span className="sm:hidden">GP</span><span className="hidden sm:inline"> GreenPoints</span>
+                      {user.points} <span className="sm:hidden">GC</span><span className="hidden sm:inline"> GreenCoins</span>
                     </div>
                   </div>
                 </div>
@@ -124,8 +121,8 @@ export const ImpactPanelSection = () => {
             <div className="mt-6 pt-6 border-t-4 border-rust flex flex-col items-center justify-center gap-3 bg-rust/10 p-4 border-2 pixel-shadow">
               <span className="font-mono-vt text-sm font-bold text-rust uppercase tracking-widest">= EARNED REWARD =</span>
               <div className="flex items-center justify-center gap-4">
-                <img src="/custom-greencoin.png" alt="Green Point" className="w-12 h-12 object-contain drop-shadow-[2px_2px_0px_rgba(61,38,22,0.4)]" style={{ imageRendering: 'pixelated' }} />
-                <h3 className="text-4xl font-pixel text-toxic-green drop-shadow-[2px_2px_0px_#3d2616]">+{greenPoints} GP</h3>
+                <img src="/custom-greencoin.png" alt="GreenCoin" className="w-12 h-12 object-contain drop-shadow-[2px_2px_0px_rgba(61,38,22,0.4)]" style={{ imageRendering: 'pixelated' }} />
+                <h3 className="text-4xl font-pixel text-toxic-green drop-shadow-[2px_2px_0px_#3d2616]">+{greenCoins} GC</h3>
               </div>
             </div>
           </div>

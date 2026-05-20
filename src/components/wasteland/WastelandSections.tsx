@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Camera, Radar, Target, Skull, Radio, ShieldCheck,
-  Armchair, Sofa, Bed, Lamp, Refrigerator, Tv, Monitor
+  Armchair, Sofa, Bed, Lamp, Refrigerator, Tv, Monitor,
+  ChevronLeft, ChevronRight, MapPin
 } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import theMachineImg from '@/assets/the-machine.jpg';
@@ -93,7 +94,7 @@ export const HeroSection = () => {
 
   return (
     <section 
-      className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden border-b-4 border-rust bg-cover bg-left md:bg-center bg-no-repeat"
+      className="relative min-h-screen flex items-center pt-32 md:pt-40 pb-16 overflow-hidden border-b-4 border-rust bg-cover bg-left md:bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/hero-bg-v3.jpg')" }}
     >
       {/* Overlay to maintain text readability against the complex background */}
@@ -115,7 +116,7 @@ export const HeroSection = () => {
             <p className="text-lg md:text-xl text-rust mb-8 max-w-xl font-mono-vt leading-relaxed">
               Don't rely on slow social media stories. GreenHunt is the real-time radar for urban stooping. Spot abandoned treasures, get live curb alerts, and beat the garbage trucks.
             </p>
-            <div className="flex flex-col sm:flex-row gap-6">
+            <div className="hidden lg:flex flex-col sm:flex-row gap-6">
               <WastelandButton variant="primary" className="text-lg md:text-xl py-4 rounded-md" onClick={() => window.location.href = 'https://green-hunt-web-v1.vercel.app/app'}>
                 OPEN THE RADAR
               </WastelandButton>
@@ -126,21 +127,21 @@ export const HeroSection = () => {
             </div>
           </motion.div>
 
-          <div className="relative hidden lg:flex items-center justify-center">
-            <div className="relative w-[450px] h-[450px] border-4 border-rust bg-parchment rounded-full flex items-center justify-center overflow-hidden scrap-border pixel-shadow">
-              <div className="absolute top-8 left-1/2 -translate-x-1/2 z-30">
+          <div className="relative flex flex-col items-center justify-center w-full lg:w-auto">
+            <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px] border-4 border-rust bg-parchment rounded-full flex items-center justify-center overflow-hidden scrap-border pixel-shadow">
+              <div className="absolute top-4 sm:top-8 left-1/2 -translate-x-1/2 z-30">
                 <div className="flex items-center gap-2 text-toxic-green font-mono-vt font-bold text-[10px] tracking-[0.1em] bg-rust px-4 py-1 border-2 border-toxic-green/50 pixel-shadow text-parchment whitespace-nowrap">
                   <Radio size={12} className="animate-flicker" /> WASTELAND_RADAR: ACTIVE
                 </div>
               </div>
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30">
+              <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-30">
                 <div className="flex items-center gap-2 text-parchment font-mono-vt font-bold text-[10px] tracking-[0.1em] bg-rust px-4 py-1 border-2 border-rust pixel-shadow whitespace-nowrap">
                   <ShieldCheck size={12} className="animate-pulse" /> {activePinsRef.current.length}_CURB_ALERTS_DETECTED
                 </div>
               </div>
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(57,255,20,0.1)_0%,_transparent_70%)]" />
-              <div className="w-[300px] h-[300px] border border-toxic-green/10 rounded-full" />
-              <div className="w-[150px] h-[150px] border border-toxic-green/20 rounded-full" />
+              <div className="absolute w-[66%] h-[66%] border border-toxic-green/10 rounded-full animate-[pulse_6s_infinite]" />
+              <div className="absolute w-[33%] h-[33%] border border-toxic-green/20 rounded-full animate-[pulse_4s_infinite]" />
               <div className="absolute top-1/2 left-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent to-toxic-green origin-left z-10"
                 style={{ transform: `translateY(-50%) rotate(${scanAngle}deg)` }}
               />
@@ -186,13 +187,24 @@ export const HeroSection = () => {
                 );
               })}
             </div>
+
+            {/* Mobile only Button directly under the Radar */}
+            <div className="flex lg:hidden flex-col sm:flex-row gap-6 mt-8 items-center text-center">
+              <WastelandButton variant="primary" className="text-lg md:text-xl py-4 rounded-md w-full sm:w-auto" onClick={() => window.location.href = 'https://green-hunt-web-v1.vercel.app/app'}>
+                OPEN THE RADAR
+              </WastelandButton>
+              <div className="flex flex-col justify-center">
+                <p className="text-[11px] font-mono-vt font-bold tracking-widest text-rust uppercase">Instant Access</p>
+                <p className="text-[10px] font-mono-vt text-toxic-green font-bold uppercase">No Apps. Just Survival.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       
       {/* Responsive Animated Hand Phone */}
       <motion.div
-        className="absolute bottom-[-10px] right-[-20px] md:bottom-[-20px] md:right-[-40px] lg:bottom-[-40px] lg:right-[-60px] z-20 pointer-events-none origin-bottom-right"
+        className="absolute bottom-[-10px] right-[-20px] md:bottom-[-20px] md:right-[-40px] lg:bottom-[-40px] lg:right-[-60px] z-20 pointer-events-none origin-bottom-right hidden md:block"
         initial={{ x: '100vw', y: '50vh', rotate: 20 }}
         animate={{ x: 0, y: 0, rotate: -5 }}
         transition={{ type: 'spring', bounce: 0.2, duration: 1.2, delay: 0.5 }}
@@ -228,9 +240,6 @@ export const TheCoreLoopSection = () => {
     <section className="py-16 bg-parchment border-b-4 border-rust industrial-grid">
       <div className="container mx-auto px-6 md:px-10">
         <div className="mb-12 text-center">
-          <span className="inline-block px-2 py-1 bg-toxic-green text-rust text-[10px] font-mono-vt font-bold mb-4 tracking-widest uppercase border-2 border-rust shadow-[2px_2px_0px_#3d2616]">
-            PROTOCOL
-          </span>
           <h2 className="text-5xl md:text-7xl font-display mb-4 tracking-wider text-rust uppercase">
             HACK THE SYSTEM. FURNISH YOUR LIFE.
           </h2>
@@ -249,6 +258,17 @@ export const TheCoreLoopSection = () => {
             </div>
           ))}
         </div>
+
+        {/* Mobile only hand/phone image to prevent clutter in hero */}
+        <div className="md:hidden flex justify-center mt-10 relative overflow-hidden">
+          <motion.img
+            src="/hand-app.png"
+            alt="GreenHunt App on Phone"
+            className="w-[280px] drop-shadow-[8px_8px_0px_rgba(61,38,22,0.4)]"
+            animate={{ y: [0, -10, 0], scale: [1, 1.02, 1] }}
+            transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+          />
+        </div>
       </div>
     </section>
   );
@@ -264,12 +284,11 @@ export const TheManifestoSection = () => (
             <img
               src={theMachineImg}
               alt="The Machine - NYC Garbage Unit"
-              className="w-full h-full object-cover grayscale brightness-[0.35] contrast-125 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700 aspect-square"
+              className="w-full h-full object-cover aspect-square"
             />
             <div className="absolute top-[45%] left-[30%] w-8 h-8 bg-toxic-green/40 rounded-full blur-xl animate-pulse" />
             <div className="absolute top-[45%] left-[60%] w-8 h-8 bg-toxic-green/40 rounded-full blur-xl animate-pulse" />
             <div className="absolute top-[60%] right-[10%] w-4 h-4 bg-white/20 rounded-full blur-md animate-steam" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
             <div className="absolute top-4 right-4 bg-rust text-white font-mono-vt font-bold text-[10px] px-2 py-1 border-2 border-toxic-green animate-pulse pixel-shadow z-20">
               SIGHTING_CONFIRMED: THE MACHINE
             </div>
@@ -277,9 +296,6 @@ export const TheManifestoSection = () => (
         </div>
         <div className="order-1 lg:order-2">
           <div className="mb-8">
-            <span className="inline-block px-2 py-1 bg-toxic-green text-rust text-[10px] font-mono-vt font-bold mb-4 tracking-widest uppercase border-2 border-rust shadow-[2px_2px_0px_#3d2616]">
-              THE TRUTH
-            </span>
             <h2 className="text-5xl md:text-7xl font-display mb-4 tracking-wider text-rust uppercase">
               The streets are fully furnished.<br/>The system is broken.
             </h2>
@@ -305,13 +321,13 @@ export const AddLootSection = () => (
           onClick={() => window.location.href = 'https://green-hunt-web-v1.vercel.app/login'}
           className="hover:scale-110 transition-transform active:scale-95 drop-shadow-[4px_4px_0px_rgba(61,38,22,0.4)]"
         >
-          <img src="/custom-plus-btn.png" alt="Add Loot" className="w-24 h-24 object-contain" />
+          <img src="/button-plus.png" alt="Add Loot" className="w-24 h-24 object-contain" />
         </button>
         <h2 className="text-4xl md:text-5xl font-display text-rust uppercase tracking-wider drop-shadow-[2px_2px_0px_rgba(61,38,22,0.2)]">
           Found an item? Add it!
         </h2>
         <p className="text-rust/80 font-mono-vt text-xl font-bold max-w-md">
-          Report abandoned items on the map and earn GreenPoints.
+          Report abandoned items on the map and earn GreenCoins.
         </p>
       </div>
     </div>
@@ -358,9 +374,6 @@ export const FaqSection = () => {
     <section className="py-16 bg-parchment border-b-4 border-rust industrial-grid relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-10 max-w-4xl relative z-10">
         <div className="text-center mb-12">
-          <span className="inline-block px-2 py-1 bg-toxic-green text-rust text-[10px] font-mono-vt font-bold mb-4 tracking-widest uppercase border-2 border-rust shadow-[2px_2px_0px_#3d2616]">
-            KNOWLEDGE BASE
-          </span>
           <h2 className="text-5xl md:text-6xl font-display text-rust uppercase tracking-wider drop-shadow-[2px_2px_0px_rgba(61,38,22,0.2)]">
             FAQ
           </h2>
@@ -379,6 +392,197 @@ export const FaqSection = () => {
               </AccordionItem>
             ))}
           </Accordion>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export const WastelandProvidesSection = () => {
+  const finds = [
+    {
+      img: '/street-finds/find-web (1).jpeg',
+      title: 'STACK OF OFFICE CHAIRS',
+      desc: '"A lot of them are in mint condition!"',
+      distance: '0.6 miles away',
+      uploader: '@cyber_scavenger',
+      gc: '+150'
+    },
+    {
+      img: '/street-finds/find-web (2).jpeg',
+      title: 'VINTAGE DRESSER',
+      desc: '"Solid mahogany, only minor scratches on the top drawer."',
+      distance: '1.2 miles away',
+      uploader: '@wasteland_queen',
+      gc: '+180'
+    },
+    {
+      img: '/street-finds/find-web (3).jpeg',
+      title: 'MINT ARMCHAIR',
+      desc: '"Super comfortable, looks almost like new! Grab it before it rains."',
+      distance: '0.3 miles away',
+      uploader: '@rad_rider',
+      gc: '+200'
+    },
+    {
+      img: '/street-finds/find-web (4).jpeg',
+      title: 'STATIONARY BICYCLE',
+      desc: '"Fully functional screen and adjustable resistance. Ready for home workouts."',
+      distance: '2.5 miles away',
+      uploader: '@green_junkie',
+      gc: '+220'
+    },
+    {
+      img: '/street-finds/find-5.webp',
+      title: 'NEIGHBOR HAUL',
+      desc: '"A neighbor cleared out their place - multiple items left on the curb. First come, first served"',
+      distance: '3.1 miles away',
+      uploader: '@alley_cat',
+      gc: '+300'
+    },
+    {
+      img: '/street-finds/find-6.webp',
+      title: 'MODERN TV STAND',
+      desc: '"Sleek design, looks brand new! Fits up to a 65-inch screen easily. In perfect condition!"',
+      distance: '1.8 miles away',
+      uploader: '@curb_collector',
+      gc: '+190'
+    }
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    setCurrentIndex(prev => (prev === 0 ? finds.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex(prev => (prev === finds.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <section className="py-20 bg-parchment/40 border-b-4 border-rust relative overflow-hidden industrial-grid">
+      <div className="container mx-auto px-6 md:px-10 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl md:text-7xl font-display text-rust mb-4 tracking-wider leading-none uppercase drop-shadow-[2px_2px_0px_rgba(61,38,22,0.3)]">
+            THE WASTELAND PROVIDES
+          </h2>
+          <div className="h-px bg-rust w-1/2 mx-auto mb-4 border-b-2 border-rust" />
+          <p className="text-xl md:text-2xl font-mono-vt text-rust/80 font-bold uppercase tracking-widest">
+            Recent extractions mapped by the resistance network
+          </p>
+        </div>
+
+        {/* Carousel Container */}
+        <div className="relative max-w-5xl mx-auto px-4 md:px-12">
+          {/* Navigation Buttons */}
+          <div className="absolute top-1/2 -left-2 md:-left-4 -translate-y-1/2 z-30">
+            <button
+              onClick={handlePrev}
+              className="p-3 bg-rust text-parchment border-2 border-rust hover:bg-toxic-green hover:text-rust transition-colors shadow-[4px_4px_0px_#3d2616] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none pixel-shadow"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft size={24} />
+            </button>
+          </div>
+          <div className="absolute top-1/2 -right-2 md:-right-4 -translate-y-1/2 z-30">
+            <button
+              onClick={handleNext}
+              className="p-3 bg-rust text-parchment border-2 border-rust hover:bg-toxic-green hover:text-rust transition-colors shadow-[4px_4px_0px_#3d2616] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none pixel-shadow"
+              aria-label="Next slide"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+
+          {/* Cards Frame */}
+          <div className="overflow-hidden py-4">
+            <motion.div
+              className="flex"
+              animate={{ x: `-${currentIndex * 100}%` }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            >
+              {finds.map((find, idx) => (
+                <div key={idx} className="w-full flex-shrink-0 px-2 md:px-4">
+                  <div className="bg-parchment border-4 border-rust p-3 sm:p-4 md:p-5 scrap-border pixel-shadow relative overflow-hidden group max-w-2xl mx-auto flex flex-col md:flex-row gap-4 sm:gap-6">
+                    
+                    {/* Image Block */}
+                    <div className="relative w-full md:w-[280px] h-[200px] sm:h-[280px] md:h-auto md:min-h-[280px] border-4 border-rust overflow-hidden scrap-border shrink-0">
+                      <img
+                        src={find.img}
+                        alt={find.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-rust/10 mix-blend-overlay" />
+                      
+                      {/* Floating Glassmorphic Tags */}
+                      <div className="absolute top-3 left-3 z-20">
+                        <span className="px-3 py-1.5 bg-rust/90 text-parchment text-xs font-mono-vt font-bold border border-rust backdrop-blur-md shadow-md uppercase tracking-widest flex items-center gap-1.5">
+                          <MapPin size={13} className="text-toxic-green animate-pulse" /> {find.distance}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Metadata & Uploader Block */}
+                    <div className="flex flex-col justify-between flex-1 py-1 sm:py-2">
+                      <div>
+                        <h3 className="text-xl sm:text-2xl md:text-3xl font-pixel text-rust leading-none mb-3 uppercase tracking-tighter break-words">
+                          {find.title}
+                        </h3>
+                        <div className="bg-rust/5 p-3 sm:p-4 border-l-4 border-toxic-green scrap-border mb-4">
+                          <p className="text-sm sm:text-base md:text-lg lg:text-xl font-mono-vt font-bold text-rust italic leading-relaxed break-words">
+                            {find.desc}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Uploader Details */}
+                      <div className="flex items-center justify-between border-t-2 border-dashed border-rust pt-4 mt-auto gap-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-rust border-2 border-rust flex items-center justify-center shrink-0">
+                            <Skull size={14} className="text-parchment" />
+                          </div>
+                          <div>
+                            <p className="text-[10px] sm:text-xs font-mono-vt text-rust/60 uppercase">CONTRIBUTOR</p>
+                            <p className="text-xs sm:text-sm font-pixel text-toxic-green break-all">{find.uploader}</p>
+                          </div>
+                        </div>
+                        <div className="text-right flex flex-col items-end shrink-0">
+                          <p className="text-[10px] sm:text-xs font-mono-vt text-rust/60 uppercase">BOUNTY</p>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <p className="text-xl sm:text-2xl font-pixel text-toxic-green font-bold drop-shadow-[1px_1px_0px_#3d2616] leading-none">
+                              {find.gc}
+                            </p>
+                            <img
+                              src="/custom-greencoin.png"
+                              alt="GreenCoin"
+                              className="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex justify-center gap-2 mt-8">
+            {finds.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`w-3 h-3 border-2 border-rust transition-all duration-300 rounded-none ${
+                  currentIndex === idx ? 'bg-toxic-green scale-125' : 'bg-parchment hover:bg-toxic-green/50'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+
         </div>
       </div>
     </section>

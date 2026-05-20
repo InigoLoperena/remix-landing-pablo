@@ -6,10 +6,9 @@ import { Radio } from 'lucide-react';
 export const Logo = () => (
   <div className="flex items-center">
     <img
-      src="/custom-logo.png"
+      src="/lovable-uploads/greenhunt-logo-new.svg"
       alt="GreenHunt"
       className="h-10 w-auto object-contain"
-      style={{ imageRendering: 'pixelated' }}
     />
   </div>
 );
@@ -110,7 +109,9 @@ export const WastelandTicker = () => (
           <span className="px-8 text-toxic-green text-[10px]">#</span>
           <span className="px-8 text-parchment animate-flicker">Join the Scavenger Resistance</span>
           <span className="px-8 text-toxic-green text-[10px]">#</span>
-          <span className="px-8 font-mono-vt text-[10px] text-parchment/60">RECLAIM THE MAP</span>
+          <span className="px-8 font-mono-vt">RECLAIM THE MAP</span>
+          <span className="px-8 text-toxic-green text-[10px]">#</span>
+          <span className="px-8 text-toxic-green animate-pulse">Free stuff</span>
           <span className="px-8 text-toxic-green text-[10px]">#</span>
         </React.Fragment>
       ))}

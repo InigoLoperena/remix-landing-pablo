@@ -9,18 +9,18 @@ export const BoardGameMapSection = () => {
   const [renderTrigger, setRenderTrigger] = useState(0);
 
   const pins = [
-    { id: 0, top: 30, left: 10, icon: <Armchair size={16} /> },
-    { id: 1, top: 50, left: 80, icon: <Sofa size={16} /> },
-    { id: 2, top: 75, left: 70, icon: <Bed size={16} /> },
-    { id: 3, top: 40, left: 45, icon: <Lamp size={16} /> },
-    { id: 4, top: 20, left: 50, icon: <Refrigerator size={16} /> },
-    { id: 5, top: 60, left: 10, icon: <Tv size={16} /> },
-    { id: 6, top: 80, left: 80, icon: <Monitor size={16} /> },
-    { id: 7, top: 15, left: 85, icon: <WashingMachine size={16} /> },
-    { id: 8, top: 55, left: 35, icon: <Sofa size={16} /> },
-    { id: 9, top: 25, left: 80, icon: <Bed size={16} /> },
-    { id: 10, top: 65, left: 65, icon: <Lamp size={16} /> },
-    { id: 11, top: 80, left: 10, icon: <Armchair size={16} /> },
+    { id: 0, top: 30, left: 10, Icon: Armchair },
+    { id: 1, top: 50, left: 80, Icon: Sofa },
+    { id: 2, top: 75, left: 70, Icon: Bed },
+    { id: 3, top: 40, left: 45, Icon: Lamp },
+    { id: 4, top: 20, left: 50, Icon: Refrigerator },
+    { id: 5, top: 60, left: 10, Icon: Tv },
+    { id: 6, top: 80, left: 80, Icon: Monitor },
+    { id: 7, top: 15, left: 85, Icon: WashingMachine },
+    { id: 8, top: 55, left: 35, Icon: Sofa },
+    { id: 9, top: 25, left: 80, Icon: Bed },
+    { id: 10, top: 65, left: 65, Icon: Lamp },
+    { id: 11, top: 80, left: 10, Icon: Armchair },
   ];
 
   useEffect(() => {
@@ -57,9 +57,6 @@ export const BoardGameMapSection = () => {
       <div className="container mx-auto px-10 relative z-10 text-center">
         <div className="max-w-4xl mx-auto mb-16">
           <div className="mb-8">
-            <span className="inline-block px-2 py-1 bg-toxic-green text-rust text-[10px] font-mono-vt font-bold mb-4 tracking-widest uppercase border-2 border-rust shadow-[2px_2px_0px_#3d2616]">
-              RADAR LIVE FEED
-            </span>
             <h2 className="text-5xl md:text-7xl font-display text-rust mb-4 drop-shadow-[2px_2px_0px_rgba(61,38,22,0.3)] tracking-wider">RESCUE MAP</h2>
             <div className="h-px bg-rust w-1/2 mx-auto mb-4 border-b-2 border-rust" />
             <p className="text-xl md:text-2xl font-mono-vt text-rust/90 font-bold">
@@ -99,11 +96,13 @@ export const BoardGameMapSection = () => {
                 >
                   <div className="relative flex flex-col items-center">
                     <motion.div
-                      className="bg-toxic-green p-2 rounded-full border-4 border-rust pixel-shadow group-hover/pin:scale-110 transition-transform"
+                      className="bg-toxic-green p-1 sm:p-2 rounded-full border-2 sm:border-4 border-rust pixel-shadow group-hover/pin:scale-110 transition-transform"
                       animate={isScanned ? { scale: [1, 1.5, 1], rotate: [0, 10, -10, 0] } : {}}
                       transition={{ duration: 0.4 }}
                     >
-                      <div className="text-parchment drop-shadow-md">{pin.icon}</div>
+                      <div className="text-parchment drop-shadow-md">
+                        <pin.Icon className="w-3 h-3 sm:w-4 sm:h-4" />
+                      </div>
                     </motion.div>
                     {isScanned && (
                       <motion.div
@@ -113,8 +112,8 @@ export const BoardGameMapSection = () => {
                         transition={{ duration: 0.6 }}
                       />
                     )}
-                    <div className="w-1 h-8 bg-rust mt-[-2px]" />
-                    <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-rust p-2 border-2 border-toxic-green text-toxic-green font-mono-vt font-bold text-[10px] whitespace-nowrap opacity-0 group-hover/pin:opacity-100 transition-opacity pixel-shadow">
+                    <div className="w-0.5 sm:w-1 h-4 sm:h-8 bg-rust mt-[-2px]" />
+                    <div className="absolute top-8 sm:top-12 left-1/2 -translate-x-1/2 bg-rust p-2 border-2 border-toxic-green text-toxic-green font-mono-vt font-bold text-[10px] whitespace-nowrap opacity-0 group-hover/pin:opacity-100 transition-opacity pixel-shadow">
                       RECLAIMABLE_ASSET_FOUND
                     </div>
                   </div>

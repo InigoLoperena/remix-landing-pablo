@@ -9,7 +9,7 @@ import { StructuredData } from '@/components/StructuredData';
 // Wasteland components
 
 import { WastelandNavbar, WastelandTicker } from '@/components/wasteland/WastelandNav';
-import { HeroSection, TheCoreLoopSection, TheManifestoSection, AddLootSection, FaqSection } from '@/components/wasteland/WastelandSections';
+import { HeroSection, TheCoreLoopSection, TheManifestoSection, AddLootSection, FaqSection, WastelandProvidesSection } from '@/components/wasteland/WastelandSections';
 import { BoardGameMapSection } from '@/components/wasteland/WastelandMap';
 import { ImpactPanelSection, FinalCtaSection, SocialFooter } from '@/components/wasteland/WastelandImpact';
 
@@ -61,6 +61,7 @@ export default function LandingPage() {
         <HeroSection />
         <TheCoreLoopSection />
         <BoardGameMapSection />
+        <WastelandProvidesSection />
         <TheManifestoSection />
         <ImpactPanelSection />
         <AddLootSection />
