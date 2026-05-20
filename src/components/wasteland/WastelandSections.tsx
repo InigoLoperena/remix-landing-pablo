@@ -410,7 +410,7 @@ export const FaqSection = () => {
 export const WastelandProvidesSection = () => {
   const finds = [
     {
-      img: '/street-finds/find-web-1.webp',
+      img: '/street-finds/find-web1.webp',
       title: 'STACK OF OFFICE CHAIRS',
       desc: '"A lot of them are in mint condition!"',
       distance: '0.6 miles away',
@@ -418,7 +418,7 @@ export const WastelandProvidesSection = () => {
       gc: '+150'
     },
     {
-      img: '/street-finds/find-web-2.webp',
+      img: '/street-finds/find-web2.webp',
       title: 'VINTAGE DRESSER',
       desc: '"Solid mahogany, only minor scratches on the top drawer."',
       distance: '1.2 miles away',
@@ -426,7 +426,7 @@ export const WastelandProvidesSection = () => {
       gc: '+180'
     },
     {
-      img: '/street-finds/find-web-3.webp',
+      img: '/street-finds/find-web3.webp',
       title: 'MINT ARMCHAIR',
       desc: '"Super comfortable, looks almost like new! Grab it before it rains."',
       distance: '0.3 miles away',
@@ -434,7 +434,7 @@ export const WastelandProvidesSection = () => {
       gc: '+200'
     },
     {
-      img: '/street-finds/find-web-4.webp',
+      img: '/street-finds/find-web4.webp',
       title: 'STATIONARY BICYCLE',
       desc: '"Fully functional screen and adjustable resistance. Ready for home workouts."',
       distance: '2.5 miles away',
