@@ -8,8 +8,10 @@ import {
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import theMachineImg from '@/assets/the-machine.jpg';
 import { WastelandButton, SectionHeading } from './WastelandNav';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export const HeroSection = () => {
+  const isMobile = useIsMobile();
   const [radarPins, setRadarPins] = useState<{ id: number; top: number; left: number; angle: number; Icon: React.ElementType }[]>([]);
   const [scanAngle, setScanAngle] = useState(0);
   const activePinsRef = useRef<number[]>([]);
@@ -21,7 +23,10 @@ export const HeroSection = () => {
   useEffect(() => {
     const hour = new Date().getHours();
     const counts = [5, 8, 20, 12, 6, 9];
-    const count = counts[hour % counts.length];
+    let count = counts[hour % counts.length];
+    if (isMobile) {
+      count = Math.min(count, 5); // Limit pins to 5 on mobile to prevent extreme clutter/bleed
+    }
 
     const seededRandom = (seed: number) => {
       let x = Math.sin(seed) * 10000;
@@ -29,7 +34,9 @@ export const HeroSection = () => {
     };
 
     const newPins = Array.from({ length: count }).map((_, i) => {
-      const radiusPercent = seededRandom(hour * 100 + i) * 38 + 5; // 5% to 43% radius
+      // Reduce mobile radius even further to completely ensure no boundary overflow
+      const maxRadius = isMobile ? 28 : 32;
+      const radiusPercent = seededRandom(hour * 100 + i) * maxRadius + 5; 
       const angleRad = seededRandom(hour * 200 + i) * Math.PI * 2;
       
       const top = 50 + Math.sin(angleRad) * radiusPercent;
@@ -52,7 +59,7 @@ export const HeroSection = () => {
     const initialAges: Record<number, number> = {};
     newPins.forEach(p => { initialAges[p.id] = 0; });
     pinAgesRef.current = initialAges;
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -95,7 +102,7 @@ export const HeroSection = () => {
   return (
     <section 
       className="relative min-h-screen flex items-center pt-32 md:pt-40 pb-16 overflow-hidden border-b-4 border-rust bg-cover bg-left md:bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/hero-bg-v3.jpg')" }}
+      style={{ backgroundImage: `url(${isMobile ? '/hero-bg-mobile.webp' : '/hero-bg-v3.jpg'})` }}
     >
       {/* Overlay to maintain text readability against the complex background */}
       <div className="absolute inset-0 bg-parchment/50 z-0 backdrop-blur-[1px]"></div>
@@ -168,11 +175,11 @@ export const HeroSection = () => {
                   >
                     <div className="relative flex items-center justify-center">
                       <motion.div
-                        className={`p-1.5 rounded-full border-2 border-rust bg-rust/80 ${pinColor} pixel-shadow`}
+                        className={`p-1 sm:p-1.5 rounded-full border-2 border-rust bg-rust/80 ${pinColor} pixel-shadow`}
                         animate={isScanned ? { scale: [1, 1.4, 1], filter: ['brightness(1)', 'brightness(2)', 'brightness(1)'] } : {}}
                         transition={{ duration: 0.4 }}
                       >
-                        <pin.Icon size={14} />
+                        <pin.Icon className="w-[10.5px] h-[10.5px] sm:w-3.5 sm:h-3.5" />
                       </motion.div>
                       {isScanned && (
                         <motion.div
@@ -237,7 +244,7 @@ export const TheCoreLoopSection = () => {
     },
   ];
   return (
-    <section className="py-16 bg-parchment border-b-4 border-rust industrial-grid">
+    <section className="py-16 bg-parchment border-b-4 border-rust industrial-grid relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-10">
         <div className="mb-12 text-center">
           <h2 className="text-5xl md:text-7xl font-display mb-4 tracking-wider text-rust uppercase">
@@ -246,28 +253,26 @@ export const TheCoreLoopSection = () => {
         </div>
         <div className="grid md:grid-cols-2 gap-8">
           {steps.map((step, idx) => (
-            <div key={idx} className="relative group bg-rust border-4 border-rust p-6 scrap-border pixel-shadow flex flex-col justify-between">
-              <div>
+            <div key={idx} className={`relative group bg-rust border-4 border-rust p-6 scrap-border pixel-shadow flex flex-col justify-between ${idx === 1 ? '' : 'overflow-hidden'}`}>
+              {idx === 1 && (
+                <div className="md:hidden absolute right-[-60px] top-[5px] w-[330px] pointer-events-none z-10 origin-top-right rotate-[-12deg]">
+                  <img
+                    src="/hand-app.png"
+                    alt="Hand App"
+                    className="w-full h-auto drop-shadow-[6px_6px_0px_rgba(0,0,0,0.3)]"
+                  />
+                </div>
+              )}
+              <div className="relative z-10">
                 <div className="mb-4">
                   <span className="text-[12px] font-mono-vt font-bold px-3 py-1 border-2 border-parchment bg-toxic-green text-rust inline-block mb-3">{step.code}</span>
-                  <h3 className="text-xl md:text-2xl font-pixel text-parchment leading-tight mb-4">{step.title}</h3>
+                  <h3 className={`text-xl md:text-2xl font-pixel text-parchment leading-tight mb-4 ${idx === 1 ? 'pr-[170px] md:pr-0' : 'pr-16 md:pr-0'}`}>{step.title}</h3>
                 </div>
                 <p className="text-parchment/90 font-mono-vt text-lg leading-relaxed mb-4 bg-black/20 p-4 border border-rust">{step.desc}</p>
               </div>
-              <div className="h-2 w-full bg-toxic-green/30 group-hover:bg-toxic-green transition-all" />
+              <div className="h-2 w-full bg-toxic-green/30 group-hover:bg-toxic-green transition-all relative z-10" />
             </div>
           ))}
-        </div>
-
-        {/* Mobile only hand/phone image to prevent clutter in hero */}
-        <div className="md:hidden flex justify-center mt-10 relative overflow-hidden">
-          <motion.img
-            src="/hand-app.png"
-            alt="GreenHunt App on Phone"
-            className="w-[280px] drop-shadow-[8px_8px_0px_rgba(61,38,22,0.4)]"
-            animate={{ y: [0, -10, 0], scale: [1, 1.02, 1] }}
-            transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-          />
         </div>
       </div>
     </section>
@@ -321,7 +326,7 @@ export const AddLootSection = () => (
           onClick={() => window.location.href = 'https://green-hunt-web-v1.vercel.app/login'}
           className="hover:scale-110 transition-transform active:scale-95 drop-shadow-[4px_4px_0px_rgba(61,38,22,0.4)]"
         >
-          <img src="/button-plus.png" alt="Add Loot" className="w-24 h-24 object-contain" />
+          <img src="/button-plus.png" alt="Add Loot" className="w-64 h-64 sm:w-72 sm:h-72 object-contain" />
         </button>
         <h2 className="text-4xl md:text-5xl font-display text-rust uppercase tracking-wider drop-shadow-[2px_2px_0px_rgba(61,38,22,0.2)]">
           Found an item? Add it!
@@ -401,7 +406,7 @@ export const FaqSection = () => {
 export const WastelandProvidesSection = () => {
   const finds = [
     {
-      img: '/street-finds/find-web (1).jpeg',
+      img: '/street-finds/find-web (1).webp',
       title: 'STACK OF OFFICE CHAIRS',
       desc: '"A lot of them are in mint condition!"',
       distance: '0.6 miles away',
@@ -409,7 +414,7 @@ export const WastelandProvidesSection = () => {
       gc: '+150'
     },
     {
-      img: '/street-finds/find-web (2).jpeg',
+      img: '/street-finds/find-web (2).webp',
       title: 'VINTAGE DRESSER',
       desc: '"Solid mahogany, only minor scratches on the top drawer."',
       distance: '1.2 miles away',
@@ -417,7 +422,7 @@ export const WastelandProvidesSection = () => {
       gc: '+180'
     },
     {
-      img: '/street-finds/find-web (3).jpeg',
+      img: '/street-finds/find-web (3).webp',
       title: 'MINT ARMCHAIR',
       desc: '"Super comfortable, looks almost like new! Grab it before it rains."',
       distance: '0.3 miles away',
@@ -425,7 +430,7 @@ export const WastelandProvidesSection = () => {
       gc: '+200'
     },
     {
-      img: '/street-finds/find-web (4).jpeg',
+      img: '/street-finds/find-web (4).webp',
       title: 'STATIONARY BICYCLE',
       desc: '"Fully functional screen and adjustable resistance. Ready for home workouts."',
       distance: '2.5 miles away',
@@ -450,6 +455,7 @@ export const WastelandProvidesSection = () => {
     }
   ];
 
+  const isMobile = useIsMobile();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrev = () => {
@@ -474,9 +480,9 @@ export const WastelandProvidesSection = () => {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative max-w-5xl mx-auto px-4 md:px-12">
-          {/* Navigation Buttons */}
-          <div className="absolute top-1/2 -left-2 md:-left-4 -translate-y-1/2 z-30">
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-16">
+          {/* Navigation Buttons (Desktop/Tablet Sides - absolutely outside of cards) */}
+          <div className="hidden sm:block absolute top-1/2 sm:left-2 md:-left-4 -translate-y-1/2 z-30">
             <button
               onClick={handlePrev}
               className="p-3 bg-rust text-parchment border-2 border-rust hover:bg-toxic-green hover:text-rust transition-colors shadow-[4px_4px_0px_#3d2616] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none pixel-shadow"
@@ -485,7 +491,7 @@ export const WastelandProvidesSection = () => {
               <ChevronLeft size={24} />
             </button>
           </div>
-          <div className="absolute top-1/2 -right-2 md:-right-4 -translate-y-1/2 z-30">
+          <div className="hidden sm:block absolute top-1/2 sm:right-2 md:-right-4 -translate-y-1/2 z-30">
             <button
               onClick={handleNext}
               className="p-3 bg-rust text-parchment border-2 border-rust hover:bg-toxic-green hover:text-rust transition-colors shadow-[4px_4px_0px_#3d2616] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none pixel-shadow"
@@ -498,9 +504,20 @@ export const WastelandProvidesSection = () => {
           {/* Cards Frame */}
           <div className="overflow-hidden py-4">
             <motion.div
-              className="flex"
+              className="flex touch-pan-y cursor-grab active:cursor-grabbing"
               animate={{ x: `-${currentIndex * 100}%` }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              drag={isMobile ? "x" : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={(e, info) => {
+                const swipeThreshold = 50; // Threshold in pixels to register a swipe
+                if (info.offset.x < -swipeThreshold) {
+                  handleNext();
+                } else if (info.offset.x > swipeThreshold) {
+                  handlePrev();
+                }
+              }}
             >
               {finds.map((find, idx) => (
                 <div key={idx} className="w-full flex-shrink-0 px-2 md:px-4">
@@ -569,18 +586,53 @@ export const WastelandProvidesSection = () => {
             </motion.div>
           </div>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-2 mt-8">
-            {finds.map((_, idx) => (
+          {/* Dots Indicator & Mobile Controls */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8">
+            {/* Mobile Navigation Controls - unified pip-boy retro console design */}
+            <div className="flex items-center gap-4 sm:hidden">
               <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`w-3 h-3 border-2 border-rust transition-all duration-300 rounded-none ${
-                  currentIndex === idx ? 'bg-toxic-green scale-125' : 'bg-parchment hover:bg-toxic-green/50'
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
+                onClick={handlePrev}
+                className="p-2.5 bg-rust text-parchment border-2 border-rust hover:bg-toxic-green hover:text-rust transition-colors shadow-[3px_3px_0px_#3d2616] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none pixel-shadow"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              
+              <div className="flex gap-2">
+                {finds.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentIndex(idx)}
+                    className={`w-3 h-3 border-2 border-rust transition-all duration-300 rounded-none ${
+                      currentIndex === idx ? 'bg-toxic-green scale-125' : 'bg-parchment hover:bg-toxic-green/50'
+                    }`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={handleNext}
+                className="p-2.5 bg-rust text-parchment border-2 border-rust hover:bg-toxic-green hover:text-rust transition-colors shadow-[3px_3px_0px_#3d2616] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none pixel-shadow"
+                aria-label="Next slide"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+
+            {/* Desktop-only Dots Indicator */}
+            <div className="hidden sm:flex gap-2">
+              {finds.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentIndex(idx)}
+                  className={`w-3 h-3 border-2 border-rust transition-all duration-300 rounded-none ${
+                    currentIndex === idx ? 'bg-toxic-green scale-125' : 'bg-parchment hover:bg-toxic-green/50'
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
         </div>
