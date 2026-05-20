@@ -6,7 +6,7 @@ import { Radio } from 'lucide-react';
 export const Logo = () => (
   <div className="flex items-center">
     <img
-      src="/lovable-uploads/greenhunt-logo-new.svg"
+      src="/web_logos__3_-removebg-preview.png"
       alt="GreenHunt"
       className="h-10 w-auto object-contain"
     />

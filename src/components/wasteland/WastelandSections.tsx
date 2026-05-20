@@ -221,9 +221,9 @@ export const HeroSection = () => {
         transition={{ type: 'spring', bounce: 0.2, duration: 1.2, delay: 0.5 }}
       >
         <motion.img
-          src="/hand-app.png"
+          src="/arm-phone.webp"
           alt="GreenHunt App on Phone"
-          className="w-[360px] sm:w-[480px] md:w-[480px] lg:w-[576px] xl:w-[704px] 2xl:w-[896px] drop-shadow-[15px_15px_0px_rgba(61,38,22,0.4)]"
+          className="w-[200px] sm:w-[260px] md:w-[280px] lg:w-[340px] xl:w-[400px] 2xl:w-[480px] drop-shadow-[15px_15px_0px_rgba(61,38,22,0.4)]"
           animate={{ y: [0, -15, 0], scale: [1, 1.02, 1] }}
           transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
         />
@@ -259,9 +259,9 @@ export const TheCoreLoopSection = () => {
           {steps.map((step, idx) => (
             <div key={idx} className={`relative group bg-rust border-4 border-rust p-6 scrap-border pixel-shadow flex flex-col justify-between ${idx === 1 ? '' : 'overflow-hidden'}`}>
               {idx === 1 && (
-                <div className="md:hidden absolute right-[50px] top-[5px] w-[330px] pointer-events-none z-10 origin-top-right rotate-[-12deg]">
+                <div className="md:hidden absolute right-[-10px] top-[5px] w-[180px] pointer-events-none z-10 origin-top-right rotate-[-12deg]">
                   <img
-                    src="/hand-app.png"
+                    src="/arm-phone.webp"
                     alt="Hand App"
                     className="w-full h-auto drop-shadow-[6px_6px_0px_rgba(0,0,0,0.3)]"
                   />
