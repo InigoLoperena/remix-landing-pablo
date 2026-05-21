@@ -62,10 +62,13 @@ export const ImpactPanelSection = () => {
             </div>
             <div className="space-y-4 flex-1">
               {[
-                { name: 'GaiaGuard Nick', points: '3,100', rank: '#1', color: 'text-toxic-green' },
-                { name: 'EcoWatden',       points: '2,950', rank: '#2', color: 'text-rust' },
-                { name: 'Dr Green',        points: '2,750', rank: '#3', color: 'text-rust' },
-                { name: 'Lily Pamirez',    points: '2,600', rank: '#4', color: 'text-rust' },
+                { name: 'Nick Miller',        points: '3,100', rank: '#1', color: 'text-toxic-green' },
+                { name: 'EcoWarden',           points: '2,950', rank: '#2', color: 'text-rust' },
+                { name: 'Emma Smith',          points: '2,750', rank: '#3', color: 'text-rust' },
+                { name: 'Dave the Scrapper',   points: '2,600', rank: '#4', color: 'text-rust' },
+                { name: 'Sarah Connor',        points: '2,450', rank: '#5', color: 'text-rust' },
+                { name: 'Carlos Mendez',       points: '2,300', rank: '#6', color: 'text-rust' },
+                { name: 'Liam Parker',         points: '2,150', rank: '#7', color: 'text-rust' },
               ].map((user, idx) => (
                 <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 gap-3 border-2 border-rust bg-parchment hover:bg-[#3ea7e5]/20 transition-all overflow-hidden pixel-shadow mb-3">
                   <div className="flex items-center gap-3">
@@ -121,8 +124,8 @@ export const ImpactPanelSection = () => {
             <div className="mt-6 pt-6 border-t-4 border-rust flex flex-col items-center justify-center gap-3 bg-rust/10 p-4 border-2 pixel-shadow">
               <span className="font-mono-vt text-sm font-bold text-rust uppercase tracking-widest">= EARNED REWARD =</span>
               <div className="flex items-center justify-center gap-4">
-                <img src="/custom-greencoin.png" alt="GreenCoin" className="w-12 h-12 object-contain drop-shadow-[2px_2px_0px_rgba(61,38,22,0.4)]" style={{ imageRendering: 'pixelated' }} />
-                <h3 className="text-4xl font-pixel text-toxic-green drop-shadow-[2px_2px_0px_#3d2616]">+{greenCoins} GC</h3>
+                <img src="/custom-greencoin.png" alt="GreenCoin" className="w-16 h-16 object-contain drop-shadow-[2px_2px_0px_rgba(61,38,22,0.4)]" style={{ imageRendering: 'pixelated' }} />
+                <h3 className="text-4xl font-pixel text-toxic-green drop-shadow-[2px_2px_0px_#3d2616]">+{greenCoins}</h3>
               </div>
             </div>
           </div>

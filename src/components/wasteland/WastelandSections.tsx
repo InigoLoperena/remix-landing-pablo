@@ -101,7 +101,7 @@ export const HeroSection = () => {
   return (
     <section 
       className="relative min-h-screen flex items-center pt-32 md:pt-40 pb-16 overflow-hidden border-b-4 border-rust bg-cover bg-left md:bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${isMobile ? '/vertical-hero.webp' : '/hero-bg-v3.jpg'})` }}
+      style={{ backgroundImage: `url(${isMobile ? '/vertical-hero-2.webp' : '/hero-bg-v3.jpg'})` }}
     >
       {/* Overlay to maintain text readability against the complex background */}
       <div className="absolute inset-0 bg-parchment/40 md:bg-parchment/50 z-0 backdrop-blur-0 md:backdrop-blur-[1px]"></div>
@@ -237,13 +237,13 @@ export const TheCoreLoopSection = () => {
     { 
       code: '01: THE DROP', 
       title: 'SPOT IT. SCAN IT. EARN.', 
-      desc: "See a perfect mid-century chair on the sidewalk? Snap a photo and drop a pin on the radar. You earn GreenCoins instantly for fueling the resistance, even if you don't take the item yourself.", 
+      desc: "See a perfect mid-century chair on the sidewalk? Snap a photo and drop a pin on the radar to start stooping like a pro. You earn GreenCoins instantly for fueling the resistance, even if you don't take the item yourself.", 
       icon: <Camera size={24} /> 
     },
     { 
       code: '02: THE CATCH', 
       title: 'TRACK IT. CLAIM IT. UPGRADE.', 
-      desc: 'Stop overpaying for retail furniture. Get instant push notifications when treasure drops in your radius. Run, rescue it before the compactor arrives, and furnish your apartment for $0.', 
+      desc: 'Stop overpaying for retail furniture. With real-time stooping alerts, you get instant push notifications when treasure drops in your radius. Run, rescue it before the compactor arrives, and furnish your apartment for $0.', 
       icon: <Target size={24} /> 
     },
   ];
@@ -259,7 +259,7 @@ export const TheCoreLoopSection = () => {
           {steps.map((step, idx) => (
             <div key={idx} className={`relative group bg-rust border-4 border-rust p-6 scrap-border pixel-shadow flex flex-col justify-between ${idx === 1 ? '' : 'overflow-hidden'}`}>
               {idx === 1 && (
-                <div className="md:hidden absolute right-[-10px] top-[5px] w-[180px] pointer-events-none z-10 origin-top-right rotate-[-12deg]">
+                <div className="md:hidden absolute right-[-15px] top-[-100px] w-[270px] pointer-events-none z-10 origin-top-right rotate-[-10deg]">
                   <img
                     src="/arm-phone.webp"
                     alt="Hand App"
@@ -323,14 +323,14 @@ export const TheManifestoSection = () => (
 );
 
 export const AddLootSection = () => (
-  <section className="py-16 bg-parchment/80 border-b-4 border-rust industrial-grid relative overflow-hidden">
+  <section className="py-8 md:py-10 bg-parchment/80 border-b-4 border-rust industrial-grid relative overflow-hidden">
     <div className="container mx-auto px-6 md:px-10 text-center relative z-10">
-      <div className="flex flex-col items-center gap-6 max-w-2xl mx-auto">
+      <div className="flex flex-col items-center gap-4 md:gap-5 max-w-2xl mx-auto">
         <button 
           onClick={() => window.location.href = 'https://green-hunt-web-v1.vercel.app/login'}
           className="hover:scale-110 transition-transform active:scale-95 drop-shadow-[4px_4px_0px_rgba(61,38,22,0.4)]"
         >
-          <img src="/button-plus.png" alt="Add Loot" className="w-64 h-64 sm:w-72 sm:h-72 object-contain" />
+          <img src="/button-plus.webp" alt="Add Loot" className="w-48 h-48 md:w-[360px] md:h-[360px] object-contain" />
         </button>
         <h2 className="text-4xl md:text-5xl font-display text-rust uppercase tracking-wider drop-shadow-[2px_2px_0px_rgba(61,38,22,0.2)]">
           Found an item? Add it!
@@ -347,7 +347,7 @@ export const FaqSection = () => {
   const faqs = [
     {
       question: "What is Greenhunt?",
-      answer: "An app to find or post abandoned furniture or other objects on the street."
+      answer: "The ultimate stooping app to find or post abandoned furniture and other street treasures in your city."
     },
     {
       question: "How does it work?",
@@ -479,7 +479,7 @@ export const WastelandProvidesSection = () => {
           </h2>
           <div className="h-px bg-rust w-1/2 mx-auto mb-4 border-b-2 border-rust" />
           <p className="text-xl md:text-2xl font-mono-vt text-rust/80 font-bold uppercase tracking-widest">
-            Recent extractions mapped by the resistance network
+            Recent stooping extractions mapped by the resistance network
           </p>
         </div>
 
