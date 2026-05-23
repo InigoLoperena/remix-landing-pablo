@@ -84,8 +84,14 @@ export const ImpactPanelSection = () => {
                     </div>
                   </div>
                   <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 border-rust/10 pt-2 sm:pt-0">
-                    <div className="text-toxic-green font-mono-vt font-bold text-xs sm:text-sm shrink-0">
-                      {user.points} <span className="sm:hidden">GC</span><span className="hidden sm:inline"> GreenCoins</span>
+                    <div className="text-toxic-green font-mono-vt font-bold text-xs sm:text-sm shrink-0 flex items-center gap-1">
+                      {user.points}
+                      <img
+                        src="/custom-greencoin.png"
+                        alt="GreenCoin"
+                        className="w-4 h-4 sm:w-5 sm:h-5 object-contain shrink-0"
+                        style={{ imageRendering: 'pixelated' }}
+                      />
                     </div>
                   </div>
                 </div>

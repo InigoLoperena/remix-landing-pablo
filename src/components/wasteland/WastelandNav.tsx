@@ -105,7 +105,7 @@ export const WastelandTicker = () => (
         <React.Fragment key={i}>
           <span className="px-8 text-hazard-yellow">The asphalt is ours</span>
           <span className="px-8 text-toxic-green text-[10px]">#</span>
-          <span className="px-8 font-mono-vt">3,000,000 TONS WASTED ANNUALLY</span>
+          <span className="px-8 font-mono-vt">3,000,000 TONS WASTED ON NY ANNUALLY</span>
           <span className="px-8 text-toxic-green text-[10px]">#</span>
           <span className="px-8 text-parchment animate-flicker">Join the Scavenger Resistance</span>
           <span className="px-8 text-toxic-green text-[10px]">#</span>
