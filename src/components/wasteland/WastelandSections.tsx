@@ -233,51 +233,129 @@ export const HeroSection = () => {
 };
 
 export const TheCoreLoopSection = () => {
-  const steps = [
-    { 
-      code: '01: THE DROP', 
-      title: 'SPOT IT. SCAN IT. EARN.', 
-      desc: "See a perfect mid-century chair on the sidewalk? Snap a photo and drop a pin on the radar to start stooping like a pro. You earn GreenCoins instantly for fueling the resistance, even if you don't take the item yourself.", 
-      icon: <Camera size={24} /> 
+  const cards = [
+    {
+      icon: '📍',
+      title: 'Drop Pins, Get Paid',
+      text: 'Turn your daily commute into a treasure hunt. Spot pristine furniture on the sidewalk, drop a pin on the radar, and instantly earn GreenCoins for fueling the resistance.',
+      code: 'SYS_RADAR_01',
     },
-    { 
-      code: '02: THE CATCH', 
-      title: 'TRACK IT. CLAIM IT. UPGRADE.', 
-      desc: 'Stop overpaying for retail furniture. With real-time stooping alerts, you get instant push notifications when treasure drops in your radius. Run, rescue it before the compactor arrives, and furnish your apartment for $0.', 
-      icon: <Target size={24} /> 
+    {
+      icon: '⏰',
+      title: 'The Early Adopter Advantage',
+      text: 'To conquer the city, we need eyes on every block right now. Join today while the earning difficulty is at its absolute lowest. As the map fills up, earning becomes harder. The earlier you start, the faster you stack.',
+      code: 'EARN_BOOST_2X',
+    },
+    {
+      icon: '💸',
+      title: 'Real-World Value',
+      text: "This isn't just a high score. Use your stash to unlock premium radar features today, or hold onto them. Soon, GreenCoins will be exchangeable for real cash. You are literally walking past money. Pick it up.",
+      code: 'LIQ_REWARD_SYS',
     },
   ];
+
   return (
-    <section className="py-16 bg-parchment border-b-4 border-rust industrial-grid relative overflow-hidden">
-      <div className="container mx-auto px-6 md:px-10">
-        <div className="mb-12 text-center">
-          <h2 className="text-5xl md:text-7xl font-display mb-4 tracking-wider text-rust uppercase">
-            HACK THE SYSTEM. FURNISH YOUR LIFE.
+    <section className="py-24 bg-parchment border-b-4 border-rust relative overflow-hidden industrial-grid">
+      {/* Decorative Sci-Fi radar sweep element using subtle rust overlay */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(139,69,19,0.03)_0%,_transparent_70%)] pointer-events-none" />
+      
+      {/* Hazard-stripe subtle line at the top */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-rust/20 to-transparent" />
+
+      <div className="container mx-auto px-6 md:px-10 relative z-10">
+        
+        {/* Section Header */}
+        <div className="mb-16 text-center max-w-4xl mx-auto">
+          <div className="inline-block px-3 py-1 bg-rust text-toxic-green text-xs font-mono-vt font-bold mb-4 tracking-[0.2em] uppercase border-2 border-rust shadow-[2px_2px_0px_#3d2616]">
+            ⚡ MISSION_INTEL // THE_RESISTANCE
+          </div>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-display text-rust mb-6 tracking-wider leading-none uppercase drop-shadow-[2px_2px_0px_rgba(61,38,22,0.15)]">
+            The streets are paying.<br />
+            <span className="text-toxic-green drop-shadow-[1px_1px_0px_#3d2616]">Mine the curb.</span>
           </h2>
+          <div className="h-1 w-24 bg-rust mx-auto mb-6 rounded shadow-[0_0_8px_rgba(61,38,22,0.3)]" />
+          <p className="text-lg md:text-2xl text-rust font-mono-vt font-bold leading-relaxed max-w-3xl mx-auto mb-8">
+            We are funding the resistance against The Machine. Saving perfect furniture from the compactor shouldn't just be a good deed—it should be a paid gig.
+          </p>
+          
+          {/* Introducing GreenCoins layout with PNG on the left with glow */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 p-6 bg-rust/5 border-2 border-rust/10 rounded-lg max-w-2xl mx-auto shadow-sm backdrop-blur-[1px]">
+            {/* Left side: GreenCoin PNG with a beautiful green glow */}
+            <div className="shrink-0 relative group">
+              {/* Green glow background behind the coin */}
+              <div className="absolute inset-0 bg-toxic-green/30 blur-xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-500 animate-pulse" />
+              <img 
+                src="/custom-greencoin.png" 
+                alt="GreenCoin" 
+                className="w-16 h-16 object-contain relative z-10 filter drop-shadow-[0_0_12px_#699e4b] transition-transform duration-300 hover:scale-110" 
+                style={{ imageRendering: 'pixelated' }}
+              />
+            </div>
+            {/* Right side: Introducing GreenCoins Text */}
+            <div className="text-center md:text-left font-mono-vt text-rust/90 leading-relaxed text-base md:text-lg">
+              <span className="text-toxic-green font-pixel text-xs bg-rust px-2.5 py-1 border border-toxic-green/30 pixel-shadow inline-block mb-2 select-none shadow-[0_0_12px_rgba(105,158,75,0.15)] uppercase">
+                Introducing GreenCoins
+              </span>
+              <p className="font-bold">
+                The official currency of the circular economy. We are building the ultimate map of urban wealth, and we need early Explorers to light it up.
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="grid md:grid-cols-2 gap-8">
-          {steps.map((step, idx) => (
-            <div key={idx} className={`relative group bg-rust border-4 border-rust p-6 scrap-border pixel-shadow flex flex-col justify-between ${idx === 1 ? '' : 'overflow-hidden'}`}>
-              {idx === 1 && (
-                <div className="md:hidden absolute right-[-15px] top-[-100px] w-[270px] pointer-events-none z-10 origin-top-right rotate-[-10deg]">
-                  <img
-                    src="/arm-phone.webp"
-                    alt="Hand App"
-                    className="w-full h-auto drop-shadow-[6px_6px_0px_rgba(0,0,0,0.3)]"
-                  />
-                </div>
-              )}
-              <div className="relative z-10">
-                <div className="mb-4">
-                  <span className="text-[12px] font-mono-vt font-bold px-3 py-1 border-2 border-parchment bg-toxic-green text-rust inline-block mb-3">{step.code}</span>
-                  <h3 className={`text-xl md:text-2xl font-pixel text-parchment leading-tight mb-4 ${idx === 1 ? 'pr-[170px] md:pr-0' : 'pr-16 md:pr-0'}`}>{step.title}</h3>
-                </div>
-                <p className="text-parchment/90 font-mono-vt text-lg leading-relaxed mb-4 bg-black/20 p-4 border border-rust">{step.desc}</p>
+
+        {/* 3 Columns Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {cards.map((card, idx) => (
+            <div 
+              key={idx} 
+              className="relative group bg-rust border-4 border-rust p-6 md:p-8 rounded-lg overflow-hidden flex flex-col justify-between transition-all duration-300 ease-out hover:border-toxic-green hover:shadow-[0_0_20px_rgba(105,158,75,0.25)] hover:-translate-y-1 pixel-shadow"
+            >
+              {/* Sci-fi tech styling elements */}
+              <div className="absolute top-0 right-0 p-2 text-[8px] font-mono text-parchment/40 tracking-widest group-hover:text-toxic-green/60 transition-colors uppercase">
+                {card.code}
               </div>
-              <div className="h-2 w-full bg-toxic-green/30 group-hover:bg-toxic-green transition-all relative z-10" />
+              <div className="absolute top-0 left-0 w-8 h-[2px] bg-rust/60 group-hover:bg-toxic-green transition-all" />
+              <div className="absolute top-0 left-0 w-[2px] h-8 bg-rust/60 group-hover:bg-toxic-green transition-all" />
+              <div className="absolute bottom-0 right-0 w-8 h-[2px] bg-rust/60 group-hover:bg-toxic-green transition-all" />
+              <div className="absolute bottom-0 right-0 w-[2px] h-8 bg-rust/60 group-hover:bg-toxic-green transition-all" />
+
+              <div className="relative z-10 flex flex-col items-start w-full">
+                {/* Emoji Icon Container */}
+                <div className="mb-6 w-14 h-14 bg-black/20 border border-rust/40 rounded-lg flex items-center justify-center text-3xl shadow-inner group-hover:border-toxic-green/50 group-hover:shadow-[0_0_12px_rgba(105,158,75,0.15)] transition-all">
+                  {card.icon}
+                </div>
+                
+                {/* Title */}
+                <h3 className="text-2xl md:text-3xl font-display text-parchment mb-4 tracking-wide uppercase group-hover:text-toxic-green transition-colors leading-tight">
+                  {card.title}
+                </h3>
+                
+                {/* Text Body - dark semi-transparent inner block for extreme legibility and style */}
+                <p className="text-parchment/90 font-mono-vt text-base md:text-lg leading-relaxed mb-6 bg-black/20 p-4 border border-rust/40 rounded w-full">
+                  {card.text}
+                </p>
+              </div>
+
+              {/* Bottom tech line bar indicator */}
+              <div className="h-[3px] w-12 bg-rust/60 group-hover:bg-toxic-green group-hover:w-full transition-all duration-300 relative z-10 mt-auto" />
             </div>
           ))}
         </div>
+
+        {/* CTA Button */}
+        <div className="flex flex-col items-center gap-4">
+          <WastelandButton 
+            variant="primary" 
+            className="text-xl md:text-2xl px-12 py-5 scale-105 border-2 border-rust shadow-[6px_6px_0px_#3d2616] hover:shadow-[0_0_25px_rgba(105,158,75,0.5)] transition-all"
+            onClick={() => window.location.href = 'https://green-hunt-web-v1.vercel.app/app'}
+          >
+            Start Earning Now
+          </WastelandButton>
+          <div className="text-[10px] font-mono-vt text-rust/60 uppercase tracking-widest">
+            // STATUS: EARLY EXTRACTOR DIFFICULTY - LOWEST
+          </div>
+        </div>
+
       </div>
     </section>
   );
