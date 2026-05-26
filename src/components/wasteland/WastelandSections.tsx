@@ -223,7 +223,7 @@ export const HeroSection = () => {
         <motion.img
           src="/arm-phone.webp"
           alt="GreenHunt App on Phone"
-          className="w-[200px] sm:w-[260px] md:w-[280px] lg:w-[340px] xl:w-[400px] 2xl:w-[480px] drop-shadow-[15px_15px_0px_rgba(61,38,22,0.4)]"
+          className="w-[200px] sm:w-[260px] md:w-[196px] lg:w-[238px] xl:w-[280px] 2xl:w-[336px] drop-shadow-[15px_15px_0px_rgba(61,38,22,0.4)]"
           animate={{ y: [0, -15, 0], scale: [1, 1.02, 1] }}
           transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
         />
@@ -539,6 +539,7 @@ export const WastelandProvidesSection = () => {
 
   const isMobile = useIsMobile();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const handlePrev = () => {
     setCurrentIndex(prev => (prev === 0 ? finds.length - 1 : prev - 1));
@@ -547,6 +548,14 @@ export const WastelandProvidesSection = () => {
   const handleNext = () => {
     setCurrentIndex(prev => (prev === finds.length - 1 ? 0 : prev + 1));
   };
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentIndex(prev => (prev === finds.length - 1 ? 0 : prev + 1));
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [isPaused, finds.length]);
 
   return (
     <section className="py-20 bg-parchment/40 border-b-4 border-rust relative overflow-hidden industrial-grid">
@@ -584,7 +593,13 @@ export const WastelandProvidesSection = () => {
           </div>
 
           {/* Cards Frame */}
-          <div className="overflow-hidden py-4">
+          <div 
+            className="overflow-hidden py-4"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+            onTouchEnd={() => setIsPaused(false)}
+          >
             <motion.div
               className="flex touch-pan-y cursor-grab active:cursor-grabbing"
               animate={{ x: `-${currentIndex * 100}%` }}
