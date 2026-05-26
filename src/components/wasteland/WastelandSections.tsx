@@ -237,7 +237,7 @@ export const TheCoreLoopSection = () => {
     {
       icon: '📍',
       title: 'Drop Pins, Get Paid',
-      text: 'Turn your daily commute into a treasure hunt. Spot pristine furniture on the sidewalk, drop a pin on the radar, and instantly earn GreenCoins for fueling the resistance.',
+      text: 'Turn your daily commute into a treasure hunt. Spot pristine furniture on the sidewalk, drop a pin on the radar, and earn GreenCoins each time someone saves the item from the landfill, fueling the circular resistance.',
       code: 'SYS_RADAR_01',
     },
     {

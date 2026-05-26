@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Zap, Droplets, Trees, Trash2, Armchair, Skull, Instagram, Youtube, Linkedin } from 'lucide-react';
+import { Zap, Droplets, Trees, Trash2, Armchair, Skull, Instagram, Youtube, Linkedin, Facebook, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { WastelandButton, SectionHeading } from './WastelandNav';
 import { Input } from '@/components/ui/input';
@@ -197,6 +197,7 @@ export const SocialFooter = ({ t }: { t: (k: string) => string }) => (
       <div className="flex items-center justify-center gap-8 mb-10">
         {[
           { href: 'https://www.instagram.com/greenhuntstoopingapp/', icon: <Instagram className="h-10 w-10" /> },
+          { href: 'https://www.facebook.com/Greenhunt5', icon: <Facebook className="h-10 w-10" /> },
           { href: 'https://www.tiktok.com/@greenhuntstoopingapp', icon: (
             <svg className="h-10 w-10" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-.88-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
@@ -219,13 +220,14 @@ export const SocialFooter = ({ t }: { t: (k: string) => string }) => (
 
       <div className="w-full h-px mb-6 bg-gradient-to-r from-transparent via-rust to-transparent opacity-30" />
 
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-2 px-2 text-rust/80 font-mono-vt font-bold text-xs">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-2 px-2 text-rust/85 font-mono-vt font-bold text-lg md:text-xl">
         <div className="flex items-center gap-2">
-          <span>Made to stop the linear economy apocalypse</span>
-          <span className="text-lg">💀🌍</span>
+          <span className="uppercase tracking-wider">stop linear economy apocalypse</span>
+          <span className="text-2xl">💀🌍</span>
         </div>
-        <a href="mailto:hello@greenhunt.net" className="hover:text-toxic-green transition-colors">
-          hello@greenhunt.net
+        <a href="mailto:hello@greenhunt.net" className="hover:text-toxic-green transition-colors flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+          <Mail className="h-6 w-6 shrink-0" />
+          <span>hello@greenhunt.net</span>
         </a>
       </div>
     </div>
